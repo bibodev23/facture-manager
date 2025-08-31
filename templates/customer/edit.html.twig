@@ -1,0 +1,18 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Modifier un client{% endblock %}
+
+{% block page_title %}
+    <span>{{ ux_icon('mdi:account-edit') }}</span>
+    Modifier un client
+{% endblock %}
+
+{% block body %}
+<div class="page-content">
+        {{ include('customer/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    {{ include('customer/_delete_form.html.twig') }}
+</div>
+
+
+{% endblock %}

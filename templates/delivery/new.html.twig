@@ -1,0 +1,17 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Nouvelle livraison{% endblock %}
+
+{% block page_title %}
+    <span>{{ ux_icon('mdi:account-edit') }}</span>
+    Nouvelle livraison
+{% endblock %}
+
+{% block body %}
+    <div class="page-content">
+        <section>
+            {{ include('delivery/_form.html.twig') }}
+        </section>
+    </div>
+
+{% endblock %}

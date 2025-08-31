@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="register-login">
+			<div class="background">
+				<a href="{{ path('app_home') }}" class="logo"><img src="{{ asset('images/logo-light.png')}}" alt="logo"></a>
+				<ul>
+					
+					<h1>Accèdez à votre espace</h1>
+					<li>{{ ux_icon('bi:check-lg') }}Créer vos clients</li>
+					<li>{{ ux_icon('bi:check-lg') }}Générer vos factures</li>
+					<li>{{ ux_icon('bi:check-lg') }}Envoi par Email</li>
+					<li>{{ ux_icon('bi:check-lg') }}Suivi de vos chiffres</li>
+				</ul>
+			</div>
+			<div class="form-register" data-controller="form">
+				{{ form_errors(registrationForm) }}
+				{{ form_start(registrationForm) }}
+				
+                {% for flash_error in app.flashes('verify_email_error') %}
+					<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+				{% endfor %}
+
+				<h1>Inscription</h1>
+					<h2>Votre entreprise</h2>
+					{{ form_row(registrationForm.companyName, {
+						label: 'Nom de l\'entreprise',
+					})}}
+					<div  data-controller="form">
+						{{ form_row(registrationForm.siret, {
+							label: 'Numéro SIRET',
+							attr: {
+								'data-form-target': 'siret',
+								'data-action': 'input->form#validateSiret'
+							}
+						})}}
+						<div class="invalid-feedback" data-form-target="siretError"></div>
+					</div>
+					<h2>Vos coordonnées</h2>
+					{{ form_row(registrationForm.firstName, {
+						label: 'Prénom',
+					}) }}
+					{{ form_row(registrationForm.lastName, {
+						label: 'Nom',
+					}) }}
+					{{ form_row(registrationForm.email, {
+						label: 'Adresse Email',
+					}) }}
+					{{ form_row(registrationForm.plainPassword, {
+						label: 'Mot de passe',
+					}) }}
+					{{ form_row(registrationForm.agreeTerms, {
+            			label: 'J\'accepte les conditions d\'utilisation',
+						row_attr: { class: 'checkbox' },
+        			}) }}
+					<div class="actions">
+						<button type="submit" class="btn">Inscription</button>
+					</div>
+
+				{{ form_end(registrationForm) }}
+								{# <div class="controller-action">
+					<button type="button" class="btn" data-action="form#nextStep" data-form-target="step3">Suivant</button>
+				</div> #}
+			</div>
+		</div>
+	</body>
+</html>

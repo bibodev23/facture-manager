@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+	{% if is_granted('ROLE_VERIFIED') %}
+	    <div class="dashboard-container">
+		<div id="sidebar">
+				<div class="logo">
+					<a class="desktop" href="{{ path('app_dashboard')}}"><img src="{{ asset('images/logo-light.png') }}"></a>
+					<a class="responsive" href="{{ path('app_dashboard')}}"><img src="{{ asset('images/logo-responsive.png') }}"></a>
+				</div>
+				<ul>
+					<li class="">
+						<a class=" {% if app.request.attributes.get('_route') starts with 'app_dashboard' %}active{% endif %}" href="{{ path('app_dashboard')}}">
+							{{ ux_icon('material-symbols:home-outline-rounded') }} 
+							<span>Tableau de bord</span>
+						</a>
+					</li>
+										{% if app.user.company.getCustomers() is not empty%}
+											<li class="">
+						<a class=" {% if app.request.attributes.get('_route') starts with 'app_customer' %}active{% endif %}" href="{{ path('app_customer_index') }}">
+							{{ ux_icon('garden:customer-lists-fill-26') }}
+							<span>Mes Clients</span>
+						</a>
+					</li>
+					{% else %}
+						<li class="">
+							<a class=" {% if app.request.attributes.get('_route') starts with 'app_customer' %}active{% endif %}" href="{{ path('app_customer_new') }}">
+								{{ ux_icon('mdi:account-plus') }}
+								<span>Ajouter un client</span>
+							</a>
+						</li>
+					{% endif %}
+					<li class="">
+						<a class=" {% if app.request.attributes.get('_route') starts with 'app_invoice' %}active{% endif %}" href="{{ path('app_invoice_index') }}">
+							{{ ux_icon('tabler:file-euro') }} 
+							<span>Mes Factures</span>
+						</a>
+					</li>
+					<li class="">
+						<a class=" {% if app.request.attributes.get('_route') starts with 'app_delivery' %}active{% endif %}" href="{{ path('app_delivery_index')}}">
+							{{ ux_icon('tabler:file-euro') }} 
+							<span>Mes livraisons</span>
+						</a>
+					</li>
+
+
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="">
+							<a class=" {% if app.request.attributes.get('_route') starts with 'app_user' %}active{% endif %}" href="{{ path('app_user_index') }}">
+								{{ ux_icon('mdi:account-multiple') }} 
+								<span>Utilisateurs</span>
+							</a>
+						</li>
+					{% endif %}
+
+					{% if app.user.getCompany() %}
+						<li class="">
+							<a class=" {% if app.request.attributes.get('_route') starts with 'app_company' %}active{% endif %}" href="{{ path('app_company_edit', {'id': app.user.company.id}) }}">
+								{{ ux_icon('mdi:company') }} 
+								<span>Mes informations</span>
+							</a>
+						</li> 
+					{% endif %}
+
+					 <li class="">
+						<a class=" {% if app.request.attributes.get('_route') starts with 'app_faq' %}active{% endif %}" href="{{ path('app_faq')}}">
+							{{ ux_icon('line-md:question') }} <span>Foire aux questions</span></a>
+					</li>
+					<li class="logout">
+						<a class="" href="{{ path('app_logout')}}">
+							{{ ux_icon('lucide:log-out') }} <span>Se déconnecter</span> </a>
+					</li>
+				</ul>
+				<div class="close">
+					{{ ux_icon('icon-park-outline:back') }}
+				</div>
+		</div>
+        <div class="page">
+            <div class="flash">
+                {% include 'partials/flash.html.twig' %}
+            </div>
+			<div class="page-title">
+			<div class="logo">
+				<a href="{{ path('app_home')}}"><img src="{{ asset('images/logo-dark.png') }}"></a>
+			</div>
+			<h1 class="title">{% block page_title %}{% endblock %}</h1>
+			<div class="user-notif">
+				{# <div class="light-notif">
+					{{ ux_icon('entypo:light-up') }}
+				</div> #}
+				<div class="user">
+					<div class="user-info">
+						{{ ux_icon('mdi:user') }}
+						<p>{{ app.user.firstName() }}<br>{{ app.user.lastName() }}</p>
+					</div>
+					<div class="links">
+						<a href="{{ path('app_dashboard') }}">Mon profil</a>
+						{% if app.user.getCompany() %}
+							<a href="{{ path('app_company_edit', {'id': app.user.company.id}) }}">Mon entreprise</a>
+						{% endif %}
+						<a href="{{ path('app_dashboard') }}">FAQ</a>
+						<a href="{{ path('app_logout') }}">Deconnexion</a>
+					</div>
+				</div>
+			</div>
+			<div class="burger">
+			{{ ux_icon('bi:list') }}
+			</div>
+
+		</div>
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+	{% elseif is_granted('ROLE_VIEWER') %}
+
+			<h1>Veuillez confirmer votre compte</h1>
+		<p>Un email avec un lien de confirmation vous a été envoyé lors de l'inscription</p>
+		<a href="{{ path('app_logout') }}">Retour à l'accueil</a>
+	{% endif %}
+    </body>
+</html>

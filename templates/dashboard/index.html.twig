@@ -1,0 +1,47 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Bonjour
+	{{ controller_name }}!
+{% endblock %}
+{% block page_title %}
+	Mon tableau de bord
+{% endblock %}
+{% block body %}
+
+
+	<div class="page-content dashboard">
+		<h2>Bienvenue,
+			<br>
+			<span>{{ app.user.firstName() }}</span>
+		</h2>
+		{% if (companyCompleted)%}
+
+			<section class="list-card three">
+				<div class="card">
+					<p>Nombre de clients</p>
+					<span>{{ company.customers.count() }}</span>
+				</div>
+				<div class="card">
+					<p>Nombre de livraisons</p>
+					<span>{{ company.deliveries.count() }}</span>
+				</div>
+				<div class="card">
+					<p>CA / Livraison</p>
+					<span>0</span>
+				</div>
+				<div class="card">
+					<p>Livraisons non facturées</p>
+					<span>{{ company.getDeliveriesNotInvoiced().count() }}</span>
+				</div>
+			</section>
+			<section class="chart">
+				<h3>Chiffre d'affaires mensuel</h3>
+				{{ render_chart(chart) }}
+			</section>
+		{% else %}
+			<p>Vous n'avez pas encore paramétré votre entreprise.</p>
+			<a href="{{ path('app_company_edit', {'id': app.user.company.id}) }}" class="btn">Paramétrer mon entreprise</a>
+		{% endif %}
+
+	</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+verify_email:
+  expired_link: "Votre lien"
+  invalid_signature: "Lien de vérification invalide. Demandez un nouveau lien."
+  verification_link_used: "Ce lien a déjà été utilisé."
+  email_is_verified: "Votre adresse e-mail est déjà vérifiée."

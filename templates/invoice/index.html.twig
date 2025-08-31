@@ -1,0 +1,107 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Liste des factures {% endblock %}
+
+{% block page_title %}
+    Liste des factures
+{% endblock %}
+
+{% block body %}
+<div class="page-content">
+<section>    <a href="{{ path('app_invoice_new') }}" class="btn green">Nouvelle facture</a>
+</section>
+    <section>
+    <h3>Toutes les factures</h3>
+        <table class="table column">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Total HT</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td> <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ invoice.number }}</a></td>
+                <td>{{ invoice.customer.name }}</td>
+                <td>{{ invoice.date ? invoice.date|date('d/m/Y') : '' }}</td>
+                <td>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</td>
+                <td>{{ invoice.status.label }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Vous n'avez pas encore enregistré de facture.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3>Factures en attente d'envoi</h3>
+        <table class="table column orange">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Total HT</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+        {% if invoice.status.label == 'En attente d\'envoi' %}
+            <tr>
+                <td> <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ invoice.number }}</a></td>
+                <td>{{ invoice.customer.name }}</td>
+                <td>{{ invoice.date ? invoice.date|date('d/m/Y') : '' }}</td>
+                <td>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</td>
+                <td>{{ invoice.status.label }}</td>
+            </tr>
+        {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="12">Vous n'avez pas encore enregistré de facture.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h3>Factures en retard de paiement</h3>
+        <table class="table column red">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Total HT</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+        {% if invoice.status.label == 'En retard de paiement' %}
+            <tr>
+                <td> <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ invoice.number }}</a></td>
+                <td>{{ invoice.customer.name }}</td>
+                <td>{{ invoice.date ? invoice.date|date('d/m/Y') : '' }}</td>
+                <td>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</td>
+                <td>{{ invoice.status.label }}</td>
+            </tr>
+        {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="12">Vous n'avez pas encore enregistré de facture.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+</div>
+{% endblock %}

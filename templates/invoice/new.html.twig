@@ -1,0 +1,30 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Nouvelle facture {% endblock %}
+
+{% block page_title %}
+    Nouvelle facture
+{% endblock %}
+
+{% block body %}
+<div class="page-content">
+<section>
+<h1>Commencez par choisir un client</h1>
+    {{ form_start(form, { method: 'POST', action: path('app_invoice_new')}) }}
+                <div class="input-group">
+                {{ form_label(form.customer, ' ') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.customer) }}
+                </div>
+            </div>
+
+    <button class="btn">{{ button_label|default('Créer ma facture') }}</button>
+{{ form_end(form) }}
+
+
+    <a href="{{ path('app_invoice_index') }}">Retour à la liste</a>
+</section>
+</div>
+
+
+{% endblock %}

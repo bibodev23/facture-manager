@@ -1,0 +1,118 @@
+{{ form_start(form) }}
+    <div>
+        <h2>Coordonnées</h2>
+        <div class="input-group">
+            {{ form_label(form.name, 'Nom de l\'entreprise *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.name) }}
+                {{ ux_icon('bx:building') }}
+            </div>
+        <div class="two-columns">
+            <div class="input-group">
+                {{ form_label(form.address1, 'Adresse *') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.address1) }}
+                    {{ ux_icon('bx:map-pin') }}
+                </div>
+            </div>
+            <div class="input-group">
+                {{ form_label(form.address2, 'Adresse complémentaire') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.address2) }}
+                    {{ ux_icon('bx:map-pin') }}
+                </div>
+            </div>
+        </div>
+
+        <div class="two-columns">
+            <div class="input-group">
+                {{ form_label(form.postalCode, 'Code Postal *') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.postalCode) }}
+                    {{ ux_icon('entypo:address') }}
+                </div>
+            </div>
+            <div class="input-group">
+                {{ form_label(form.city, 'Ville *') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.city) }}
+                    {{ ux_icon('mdi:city') }}
+                </div>
+            </div>
+        </div>
+        <div class="two-columns">
+            <div class="input-group">
+                {{ form_label(form.email, 'Email *') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.email) }}
+                    {{ ux_icon('bx:envelope') }}
+                </div>
+            </div>
+            <div class="input-group">
+                {{ form_label(form.phone, 'Téléphone') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.phone) }}
+                    {{ ux_icon('bx:phone') }}
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <div>
+        <h2>Informations juridiques</h2>
+        <div class="two-columns">
+             <div class="input-group">
+            {{ form_label(form.siren, 'SIREN *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.siren) }}
+                {{ ux_icon('bi:pencil') }}
+            </div>
+            </div>
+            <div class="input-group">
+                {{ form_label(form.siret, 'SIRET *') }}
+                <div class="input-pencil">
+                    {{ form_widget(form.siret) }}
+                    {{ ux_icon('bi:pencil') }}
+                </div>
+            </div>
+        </div>
+       
+        <div class="input-group">
+            {{ form_label(form.tvaNumber, 'Numéro de TVA *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.tvaNumber) }}
+                {{ ux_icon('bi:pencil') }}
+            </div>
+        </div>
+        <div class="two-columns">
+                    <div class="input-group">
+            {{ form_label(form.iban, 'IBAN *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.iban) }}
+                {{ ux_icon('bi:bank') }}
+            </div>
+        </div>
+                    <div class="input-group">
+            {{ form_label(form.bic, 'BIC *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.bic) }}
+                {{ ux_icon('bi:bank') }}
+            </div>
+        </div>
+        </div>
+
+        <div class="input-group">
+            {{ form_label(form.tvaRate, 'Taux de TVA (%) *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.tvaRate) }}
+                {{ ux_icon('bi:pencil') }}
+            </div>
+        </div>
+    </div>
+
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}
+<br>
+<strong>* champs obligatoires présents sur la facture</strong>
+

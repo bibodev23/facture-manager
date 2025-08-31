@@ -1,0 +1,97 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Fiche client{% endblock %}
+
+{% block page_title %}
+   {{ customer.name }}
+{% endblock %}
+
+
+{% block body %}
+<div class="page-content">
+<section>
+    <table class="table row">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ customer.name }}</td>
+            </tr>
+            <tr>
+                <th>Addresse</th>
+                <td>{{ customer.address1 }}</td>
+            </tr>
+            {% if customer.address2 is not empty %}
+                <tr>
+                    <th>Addresse complémentaire</th>
+                    <td>{{ customer.address2 }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>Code postal</th>
+                <td>{{ customer.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ customer.city }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ customer.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ customer.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_customer_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('app_customer_edit', {'id': customer.id}) }}">Modifier</a>
+
+    {{ include('customer/_delete_form.html.twig') }}
+
+</section>
+<section>
+            <h2>Livraisons non facturées </h2>
+
+        {% if deliveries is empty %}
+            <div class="alert alert-info">
+                Aucune livraison en attente de facturation.
+            </div>
+        {% else %}
+            <a href="{{ path('app_invoice_new_from_customer', { id: customer.id }) }}" class="btn green">Créer une facture</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>description</th>
+                            <th>Montant HT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for delivery in deliveries %}
+                            {% if not delivery.invoiced %}
+                                <td>{{ delivery.date|date('d/m/Y') }}</td>
+                                <td>{{ delivery.description }}</td>
+                                <td>{{ delivery.amount|number_format(2, ',', ' ') }} €</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+        {% endif %}
+</section>
+
+<section>
+            <h2>Toutes les factures</h2>
+
+        {% for delivery in deliveries %}
+            <p>{{ delivery.date|date('d/m/Y') }} {{ delivery.description }}</p>
+        {% endfor %}
+</section>
+
+</div>
+
+{% endblock %}

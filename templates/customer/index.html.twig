@@ -1,0 +1,45 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Liste des clients{% endblock %}
+
+{% block page_title %}
+    Liste des clients
+{% endblock %}
+{% block body %}
+<div class="page-content">
+    <section>
+        <a href="{{ path('app_customer_new') }}" class="btn green">Nouveau client</a>
+    </section>
+    <section>
+        <table class="table column">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Ville</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for customer in customers %}
+                <tr>
+                
+                    <td><a href="{{ path('app_customer_show', {'id': customer.id}) }}"><strong>{{ customer.name|upper }}</strong></a></td>
+                    <td>{{ customer.city|upper }}</td>
+                    <td>
+                        <a href="{{ path('app_customer_edit', {'id': customer.id}) }}">Modifier</a>
+                    </td>
+                    
+                </tr>
+                
+            {% else %}
+                <tr>
+                    <td colspan="9">aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+
+    
+{% endblock %}

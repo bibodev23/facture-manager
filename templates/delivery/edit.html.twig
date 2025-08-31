@@ -1,0 +1,19 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Modifier une livraisont{% endblock %}
+
+{% block page_title %}
+    <span>{{ ux_icon('mdi:account-edit') }}</span>
+    Modifier une livraison
+{% endblock %}
+
+{% block body %}
+    <div class="page-content">
+        <section>
+                {{ include('delivery/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    {{ include('delivery/_delete_form.html.twig') }}
+        </section>
+    </div>
+
+{% endblock %}

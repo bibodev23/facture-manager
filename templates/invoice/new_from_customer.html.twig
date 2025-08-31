@@ -1,0 +1,26 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Nouvelle facture {% endblock %}
+
+{% block page_title %}
+    Nouvelle facture
+{% endblock %}
+
+{% block body %}
+<div class="page-content">
+<section>
+<div class="customer">
+<p><strong>Client</strong></p>
+    <h3>{{customer.name}}</h2>
+    <p>{{customer.address1}}</p>
+    <p>{{customer.address2}}</p>
+    <p>{{customer.postalCode}} {{customer.city}}</p>
+</div>
+    {{ include('invoice/_form.html.twig') }}
+
+    <a href="{{ path('app_invoice_index') }}">Retour à la liste</a>
+</section>
+</div>
+
+
+{% endblock %}

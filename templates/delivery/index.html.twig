@@ -1,0 +1,85 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Liste des livraisons{% endblock %}
+
+{% block page_title %}
+    Liste des livraisons
+{% endblock %}
+
+{% block body %}
+    <div class="page-content">
+        <section>
+            <a href="{{ path('app_delivery_new') }}" class="btn green">Nouvelle livraison</a>
+        </section>
+
+        <section>
+            <h3>Toutes les livraisons </h3>
+            <table class="table column">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Client</th>
+                        <th>Description</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for delivery in deliveries %}
+                        <tr>
+                            <td>{{ delivery.date ? delivery.date|date('d/m/Y') : '' }}</td>
+                            <td><a href="{{ path('app_customer_show', {'id': delivery.customer.id}) }}">{{ delivery.customer.name }}</a></td>
+                            <td>{{ delivery.description }}</td>
+                            <td>{{ delivery.amount|number_format(2, ',', ' ') }} €</td>
+                            <td>{{ delivery.invoiced ? 'facturée' : 'non facturée' }}</td>
+                            <td><a href="{{ path('app_delivery_show', {'id': delivery.id}) }}">{{ ux_icon('mdi:eye-outline') }}</a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">aucun enregistrement trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h3>Livraisons en attente de facturation </h3>
+            <table class="table column">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Client</th>
+                        <th>Description</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for delivery in deliveries %}
+                    {% if not delivery.invoiced %}
+                    <tr>
+                        <td>{{ delivery.date ? delivery.date|date('d-m-Y') : '' }}</td>
+                        <td><a href="{{ path('app_customer_show', {'id': delivery.customer.id}) }}">{{ delivery.customer.name }}</a></td>
+                        <td>{{ delivery.description }}</td>
+                        <td>{{ delivery.amount }}</td>
+                        <td>{{ delivery.invoiced ? 'facturée' : 'non facturée' }}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_delivery_show', {'id': delivery.id}) }}">Afficher</a>
+                            <a href="{{ path('app_delivery_edit', {'id': delivery.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endblock %}

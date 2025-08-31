@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Facture{% endblock %}
+
+{% block page_title %}
+   Facture n°{{ invoice.number }} - {{ invoice.customer.name }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="page-content page-invoice">
+
+    <section>
+        <div class="invoice-page">
+            <div class="header">
+                <h1>Facture</h1>
+                <p>N° {{ invoice.number }}</p>
+            </div>
+            <div class="address">
+                <div class="company">
+                    <p>{{ app.user.company.name|upper }}</p>
+                    <p>{{ app.user.company.address1 }}</p>
+                    {% if app.user.company.address2 is not empty %}
+                        {{ app.user.company.address2 }}
+                    {% endif %}
+                    <p>{{ app.user.company.postalCode }} {{ app.user.company.city }}</p>
+                </div>
+                <div class="customer">
+                    <p>{{ invoice.customer.name|upper }}</p>
+                    <p>{{ invoice.customer.address1 }}</p>
+                    {% if invoice.customer.address2 is not empty %}
+                        {{ invoice.customer.address2 }}
+                    {% endif %}
+                    <p>{{ invoice.customer.postalCode }} {{ invoice.customer.city }}</p>
+                </div>
+            </div>
+            <div class="date">
+                <p>Date de facturation : {{ invoice.date ? invoice.date|date('d/m/Y') : '' }}</p>
+                <p>Date d'echeance : {{ invoice.dueDate ? invoice.dueDate|date('d/m/Y') : '' }}</p>
+                <p>Iban : {{ app.user.company.iban }}</p>
+            </div>
+
+            <div class="deliveries">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th> 
+                            <th>Description</th>    
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for delivery in invoice.deliveries %}
+                            <tr>
+                                <td>{{ delivery.date ? delivery.date|date('d/m/Y') : '' }}</td>
+                                <td>{{ delivery.description }}</td>
+                                <td>{{ delivery.amount|number_format(2, ',', ' ') }} €</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>       
+                </table>
+            </div>
+
+            <div class="total">
+                <p>Total HT : <span>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</span></p>
+                <p>TVA : <span>{{ invoice.totalTVA|number_format(2, ',', ' ') }} €</span> </p>
+                <p>Total TTC : <span>{{ invoice.totalTTC|number_format(2, ',', ' ') }} €</span> </p>
+            </div>
+
+            <div class="notes">
+                <p>Notes : {{ invoice.notes ? invoice.notes : 'Pas d\'observations' }}</p>
+            </div>
+
+            <div class="footer">
+               SIRET :{{app.user.company.siret}}
+            </div>
+        </div>
+
+        <div class="invoice-actions">
+        <p class="invoice-number">Facture n° {{ invoice.number }}</p>
+        <p class="current-status">
+        Statut : {{ invoice.status.label }}
+        </p>
+            <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="btn green">Modifier</a>
+            {{ include('invoice/_delete_form.html.twig') }}
+        </div>
+    </section>
+    </div>
+{% endblock %}

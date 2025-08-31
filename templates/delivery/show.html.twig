@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Nouvelle livraison{% endblock %}
+
+{% block page_title %}
+    Livraison du {{ delivery.date ? delivery.date|date('d-m-Y') : 'date inconnue' }} pour {{ delivery.customer.name }}
+{% endblock %}
+
+
+{% block body %}
+<div class="page-content">
+<section>
+            <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Statut</th>
+                <td>
+                    {% if delivery.invoiced %}
+                    facturée
+                    {% else %}
+                    non facturée
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ delivery.customer.name }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ delivery.date ? delivery.date|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ delivery.description }}</td>
+            </tr>
+            <tr>
+                <th>Tarif</th>
+                <td>{{ delivery.amount|number_format(2, ',', ' ') }} €</td>
+            </tr>
+            <tr>
+                <th>Cmr</th>
+                <td><a href="{{ path('delivery_cmr_download', {id: delivery.id}) }}">
+  Télécharger le CMR
+</a></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a href="{{ path('app_delivery_edit', {'id': delivery.id}) }}" class="btn">Modifier</a>
+
+    {{ include('delivery/_delete_form.html.twig') }}
+</section>
+
+</div>
+
+{% endblock %}

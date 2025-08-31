@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    	<div class="input-group">
+        {{ form_label(form.customer, 'Client') }}
+        <div class="input-pencil">
+            {{ form_widget(form.customer) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}

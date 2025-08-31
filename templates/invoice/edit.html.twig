@@ -1,0 +1,20 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Modifier la facture {% endblock %}
+
+{% block page_title %}
+    <span>{{ ux_icon('mdi:account-edit') }}</span>
+    Modifier la facture {{ invoice.number }}
+{% endblock %}
+
+{% block body %}
+    <div class="page-content">
+        <section>
+            {{ include('invoice/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            {{ include('invoice/_delete_form.html.twig') }}
+        </section>
+    </div>
+    
+
+    
+{% endblock %}

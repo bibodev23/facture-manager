@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="home-container">
+			<nav>
+				<ul>
+					<li>
+						<a href="{{ path('app_home') }}"><img src="{{ asset('images/logo-dark.png')}}" alt="logo" srcset=""></a>
+					</li>
+				</ul>
+				<ul>
+					{% if is_granted('ROLE_USER') %}
+						<li>
+							<a href="{{ path('app_dashboard') }}">Dashboard</a>
+						</li>
+						<li>
+							<a href="{{ path('app_logout') }}">Se déconnecter</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="{{ path('app_login') }}">Se connecter</a>
+						</li>
+						<li>
+							<a href="{{ path('app_register') }}" class="btn-subscribe">Inscription</a>
+						</li>
+					{% endif %}
+				</ul>
+			</nav>
+			{% include 'partials/flash.html.twig' %}
+			<header>
+				<div>
+					<h1>
+						Facturation simplifiée<br>pour les transporteurs < 3,5T
+					</h1>
+					<p>Générez et envoyez vos factures et CMR en quelques clics.</p>
+					<a href="{{ path('app_register')}}" class="btn-subscribe">Créer un compte</a>
+					<p>Simple rapide et sans frais.</p>
+				</div>
+			</header>
+
+			<main>
+
+				<section>
+					<h2>Vos outils du quotidien</h2>
+					<div>
+						{% set cards = [
+          { icon: '🚚', title: "Ajout des livraisons", text: "Ajoutez facilement une livraison, indiquez le client et téléversez le CMR." },
+          { icon: '🧾', title: "Facturation automatique", text: "Regroupez les livraisons non facturées d’un même client en une seule facture." },
+          { icon: '📨', title: "Envoi intelligent", text: "La facture est envoyée au client avec les CMR, et vous recevez une copie dans votre boîte mail." }
+        ] %}
+						{% for card in cards %}
+							<div>
+								<div>{{ card.icon }}</div>
+								<h3>{{ card.title }}</h3>
+								<p>{{ card.text }}</p>
+							</div>
+						{% endfor %}
+					</div>
+				</section>
+
+				<section>
+					<h2>Foire aux questions</h2>
+					<div>
+						{% set faqs = [
+          { id: 'One', question: "Dois-je générer un CMR moi-même ?", answer: "Non, vous pouvez simplement uploader une photo ou un scan du CMR lorsque vous ajoutez la livraison." },
+          { id: 'Two', question: "Comment fonctionne l’envoi de la facture ?", answer: "Un email est envoyé à votre client avec la facture et les CMR en pièces jointes. Vous recevez une copie pour vos archives." },
+          { id: 'Three', question: "Est-ce que les fichiers sont stockés ?", answer: "Non, les CMR sont automatiquement supprimés après l’envoi. Vous gardez la trace dans votre messagerie." }
+        ] %}
+						{% for faq in faqs %}
+							<div>
+								<h2 id="heading{{ faq.id }}">
+									<button type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ faq.id }}" aria-expanded="false" aria-controls="collapse{{ faq.id }}">
+										{{ faq.question }}
+									</button>
+								</h2>
+								<div id="collapse{{ faq.id }}" aria-labelledby="heading{{ faq.id }}" data-bs-parent="#faqAccordion">
+									<div>
+										{{ faq.answer }}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</section>
+
+				<section>
+					<h2>Pourquoi ce projet ?</h2>
+					<p>TransFact a été conçu en collaboration avec des transporteurs indépendants. Beaucoup utilisent encore Excel ou Word, ce qui prend du temps et génère des erreurs. L’objectif est de proposer un outil simple, gratuit, adapté aux réalités des petites structures.</p>
+				</section>
+
+				<section>
+					<h2>Ce que vous pouvez faire avec TransFact</h2>
+					<ul>
+						<li>Créer une livraison en quelques secondes</li>
+						<li>Joindre un CMR (photo ou PDF)</li>
+						<li>Suivre les livraisons en attente de facturation</li>
+						<li>Générer des factures en un clic</li>
+						<li>Envoyer automatiquement facture + CMR par email</li>
+						<li>Recevoir une copie de chaque envoi</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Pourquoi c’est gratuit ?</h2>
+					<p>Le service est gratuit car il vise à aider les petits transporteurs à se structurer efficacement. Aucune publicité, aucune vente de données. Des options payantes pourraient arriver plus tard (export comptable, stockage cloud), mais l’essentiel restera gratuit.</p>
+				</section>
+
+			</main>
+		</div>
+	</body>
+</html>

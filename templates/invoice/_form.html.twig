@@ -1,0 +1,49 @@
+{{ form_start(form) }}
+<div class="alert alert-danger">
+	{{ form_errors(form) }}
+</div>
+<div>
+	{{ form_label(form.number) }}
+	{{ form_widget(form.number) }}
+	{{ form_errors(form.number) }}
+</div>
+<div class="two-columns">
+	<div class="input-group">
+        {{ form_label(form.date, 'Date') }}
+        <div class="input-pencil">
+            {{ form_widget(form.date) }}
+        </div>
+    </div>
+    <div class="input-group">
+        {{ form_label(form.dueDate, 'Date d\'écheance') }}
+        <div class="input-pencil">
+            {{ form_widget(form.dueDate) }}
+        </div>
+    </div>
+</div>
+<div class="input-group">
+    {{ form_label(form.notes, 'Notes') }}
+    <div class="input-pencil">
+        {{ form_widget(form.notes) }}
+    </div>
+</div>
+<div class="multi-select">
+    <h2>Livraison(s) à facturer</h2>
+    {% if form.deliveries.count > 0 %}
+        {% for deliveryField in form.deliveries %}
+            <div class="delivery-item">
+                {{ form_widget(deliveryField) }}
+                {{ form_label(deliveryField) }}
+            </div>
+        {% endfor %}
+         <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+    {% else %}
+    <div class="alert alert-danger">
+        <p>Veuillez enregistrer au moins une livraison pour ce client</p>
+        <a href="{{ path('app_delivery_new') }}" class="btn"> Créer une livraison</a>
+    </div>
+     <a class="btn locked">Sauvegarder</a
+    {% endif %}
+</div>
+   
+{{ form_end(form) }}

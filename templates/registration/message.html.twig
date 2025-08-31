@@ -12,6 +12,15 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-    </body>
+        {% include 'partials/flash.html.twig' %}
+        <div class="pop-up">
+        <div class="content">
+            <h1>Merci - veuillez activer votre compte</h1>
+            <p>Nous avons envoyé des instructions à ce sujet à l'adresse e-mail suivante :</p>
+            <p><strong>{{ email }}</strong></p>
+            <p>Vous pourrez vous connecter dès que vous aurez terminé ce processus</p>
+            <p>Si vous ne voyez pas l'email, vérifiez votre dossier spam ou courriers indésirables.</p>
+            <p>Vous pouvez fermer cette fenêtre</p>
+        </div>
+        </div>
 </html>

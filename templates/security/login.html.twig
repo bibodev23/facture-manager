@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="register-login">
+			<div class="background">
+							<a href="{{ path('app_home') }}" class="logo"><img src="{{ asset('images/logo-light.png')}}" alt="logo"></a>
+
+				
+				<ul>
+				<h1>Accèdez à votre espace</h1>
+					<li>{{ ux_icon('bi:check-lg') }}Créer vos clients</li>
+					<li>{{ ux_icon('bi:check-lg') }}Générer vos factures</li>
+					<li>{{ ux_icon('bi:check-lg') }}Envoi par Email</li>
+					<li>{{ ux_icon('bi:check-lg') }}Suivi de vos chiffres</li>
+				</ul>
+			</div>
+			<div class="form-login">
+				<form method="post">
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+
+					{# {% if app.user %}
+						<div class="mb-3">
+							Vous êtes connecté en tant que
+							{{ app.user.userIdentifier }},
+							<a href="{{ path('app_logout') }}">Déconnexion</a>
+						</div>
+					{% endif %} #}
+
+					<h1>Connexion à votre espace</h1>
+					{% include 'partials/flash.html.twig' %}
+                    <div>					
+                        <label for="username">Adresse Email</label>
+					    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+					<div>
+					<label for="password">Mot de passe</label>
+					<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+					<input
+					type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                    </div>
+
+					{#
+					            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+					            See https://symfony.com/doc/current/security/remember_me.html#}
+					
+					            <div class="checkbox">
+					                <label for="_remember_me">Se souvenir de moi</label>
+									<input type="checkbox" name="_remember_me" id="_remember_me">
+					            </div>
+					<div class="actions">
+						<button class="" type="submit">
+							Se connecter
+						</button>
+						<a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+					</div>
+					<hr>
+					<div class="actions">
+						<h1>Première visite ?</h1>
+						<a href="{{ path('app_register') }}" class="btn">Inscrivez-vous</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
