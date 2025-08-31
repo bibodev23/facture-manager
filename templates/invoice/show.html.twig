@@ -82,6 +82,9 @@
         Statut : {{ invoice.status.label }}
         </p>
             <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="btn green">Modifier</a>
+            <a href="" class="btn blue">Télécharger</a>
+            <a href="" class="btn blue">Envoi par email</a>
+            <p>Adresse de destination : {{ invoice.customer.email }}</p>
             {{ include('invoice/_delete_form.html.twig') }}
         </div>
     </section>

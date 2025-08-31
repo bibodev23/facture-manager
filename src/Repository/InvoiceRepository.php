@@ -18,16 +18,21 @@ class InvoiceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Invoice::class);
     }
-    public function findByCompany(Company $company): array
+    public function findByCompanyWithRelations(Company $company, ?string $status = null): array
     {
-        return $this->createQueryBuilder('i')
-            ->leftJoin('i.customer', 'c')->addSelect('c')
-            ->leftJoin('i.status', 's')->addSelect('s')
-            ->andWhere('c.company = :company')
+        $qb = $this->createQueryBuilder('i')
+            ->leftJoin('i.customer', 'c')->addSelect('c')     
+            ->leftJoin('i.deliveries', 'd')->addSelect('d')  
+            ->andWhere('i.company = :company')
             ->setParameter('company', $company)
-            ->orderBy('i.date', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('i.date', 'DESC');
+
+        if ($status) {
+            $qb->andWhere('i.status = :status')
+            ->setParameter('status', $status);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     public function findByCustomer(Customer $customer): array
@@ -40,19 +45,18 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByStatus(InvoiceStatus $status, Customer $customer): array
-    {
-        return $this->createQueryBuilder('i')
-            ->leftJoin('i.customer', 'c')->addSelect('c')
-
-            ->andWhere('i.customer = :customer')
-            ->andWhere('i.status = :status')
-            ->setParameter('customer', $customer)
-            ->setParameter('status', $status)
-            ->orderBy('i.date', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findByStatus(InvoiceStatus $status, Customer $customer): array
+    // {
+    //     return $this->createQueryBuilder('i')
+    //         ->leftJoin('i.customer', 'c')->addSelect('c')
+    //         ->andWhere('i.customer = :customer')
+    //         ->andWhere('i.status = :status')
+    //         ->setParameter('customer', $customer)
+    //         ->setParameter('status', $status)
+    //         ->orderBy('i.date', 'DESC')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
     //    /**
     //     * @return Invoice[] Returns an array of Invoice objects

@@ -26,13 +26,25 @@ final class InvoiceController extends AbstractController
     {
         /** @var App\Entity\User $user */
         $user = $this->getUser();
+        $company = $user->getCompany();
+
+        $invoices = $invoiceRepository->findByCompanyWithRelations($company);
+        $invoicesOverdue = $invoiceRepository->findByCompanyWithRelations($company, InvoiceStatus::Overdue->value);
+        $invoicesPendingSending = $invoiceRepository->findByCompanyWithRelations($company, InvoiceStatus::PendingSending->value);
+
+        if (count($company->getDeliveries()) < 1) {
+            $this->addFlash('info', 'Vous devez d\'abord ajouter une livraison avant de créer une facture.');
+            return $this->redirectToRoute('app_delivery_new');
+        }
         return $this->render('invoice/index.html.twig', [
-            'invoices' => $invoiceRepository->findByCompany($user->getCompany()),
+            'invoices' => $invoices,
+            'invoicesOverdue' => $invoicesOverdue,
+            'invoicesPendingSending' => $invoicesPendingSending,
         ]);
     }
 
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();

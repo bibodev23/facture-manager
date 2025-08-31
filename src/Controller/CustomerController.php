@@ -40,7 +40,9 @@ final class CustomerController extends AbstractController
             $entityManager->persist($customer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Le client a été ajouté avec succès !');
+            $this->addFlash('info', 'Pensez à ajouter vos premières livraisons et factures !');
+            return $this->redirectToRoute('app_customer_show', ['id' => $customer->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('customer/new.html.twig', [
