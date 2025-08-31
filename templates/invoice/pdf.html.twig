@@ -1,17 +1,13 @@
-{% extends 'dashboard/base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture n°{{ invoice.number }}</title>
+</head>
 
-{% block title %}Facture{% endblock %}
 
-{% block page_title %}
-   Facture n°{{ invoice.number }} - {{ invoice.customer.name }}
-{% endblock %}
-
-
-{% block body %}
-    <div class="page-content page-invoice">
-
-    <section>
-        <div class="invoice-page">
+<body>
             <div class="header">
                 <h1>Facture</h1>
                 <p>N° {{ invoice.number }}</p>
@@ -74,20 +70,6 @@
             <div class="footer">
                SIRET :{{app.user.company.siret}}
             </div>
-        </div>
-
-        <div class="invoice-actions">
-        <p class="invoice-number">Facture n° {{ invoice.number }}</p>
-        <p class="current-status">
-        Statut : {{ invoice.status.label }}
-        </p>
-            <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="btn green">Modifier</a>
-            <a href="{{ path('app_invoice_show_pdf', {'id': invoice.id}) }}" class="btn blue">Voir format pdf</a>
-            <a href="{{ path('app_invoice_download', {'id': invoice.id}) }}" class="btn blue">Télécharger PDF</a>
-            <a href="" class="btn blue">Envoi par email</a>
-            <p>Adresse de destination : {{ invoice.customer.email }}</p>
-            {{ include('invoice/_delete_form.html.twig') }}
-        </div>
-    </section>
-    </div>
-{% endblock %}
+        
+</body>
+</html>

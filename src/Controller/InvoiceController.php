@@ -12,6 +12,7 @@ use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
 use App\Service\InvoiceCalculator;
 use App\Service\InvoiceCreator;
+use App\Service\PdfGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,4 +172,28 @@ final class InvoiceController extends AbstractController
 
         return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/pdf/{id}', name: 'app_invoice_show_pdf', methods: ['GET'])]
+    public function showPdf(Invoice $invoice, EntityManagerInterface $entityManager): Response
+    {
+        return $this->render('invoice/pdf.html.twig', [
+            'invoice' => $invoice,
+        ]);
+    }
+
+    #[Route('/{id}/download', name: 'app_invoice_download', methods: ['GET'])]
+    public function download(Invoice $invoice, PdfGenerator $pdfGenerator): Response
+    {
+        $htmlContent = $this->renderView('invoice/pdf.html.twig', [
+            'invoice' => $invoice,
+        ]);
+
+        $pdfContent = $pdfGenerator->generatePdf($htmlContent);
+
+        return new Response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="invoice.pdf"',
+        ]);
+    }
+
 }
