@@ -10,6 +10,7 @@ use App\Form\CustomerChoiceType;
 use App\Form\InvoiceType;
 use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
+use App\Service\EmailCreator;
 use App\Service\InvoiceCalculator;
 use App\Service\InvoiceCreator;
 use App\Service\PdfGenerator;
@@ -17,6 +18,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/invoice')]
@@ -196,4 +200,22 @@ final class InvoiceController extends AbstractController
         ]);
     }
 
+    #[Route('invoice/{id}/mail', name: 'app_invoice_mail', methods: ['GET'])]
+    public function sendInvoice(Invoice $invoice, MailerInterface $mailer, Request $request, PdfGenerator $pdfGenerator, EmailCreator $emailCreator): Response
+    {
+        $htmlContent = $this->renderView('invoice/email.html.twig', [
+            'invoice' => $invoice,
+        ]);
+
+        $invoicePdfContent = $this->renderView('invoice/pdf.html.twig', [
+            'invoice' => $invoice,
+        ]);
+
+        $pdfContent = $pdfGenerator->generatePdf($invoicePdfContent);
+        $emailCreator = $emailCreator->send($invoice, $mailer, $pdfContent, $htmlContent);
+        $this->addFlash('success', 'La facture a bien été envoyée par email à ' . $invoice->getCustomer()->getEmail() . ' !');
+        return $this->render('invoice/show.html.twig', [
+            'invoice' => $invoice,
+        ]);
+    }
 }
