@@ -21,7 +21,6 @@ final class EmailCreator
     }
     public function send(Invoice $invoice, MailerInterface $mailer, $pdfContent, $htmlContent): void
     {
-        
         $email = (new Email())
             ->from(new Address('facturemanager@webmove.fr', 'Support Facture Manager'))
             ->to((string)$invoice->getCustomer()->getEmail())

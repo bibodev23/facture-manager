@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Form\CompanyInvoiceThemeType;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,7 +66,9 @@ final class CompanyController extends AbstractController
 
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
-        
+
+        $formTheme = $this->createForm(CompanyInvoiceThemeType::class, $company);
+        $formTheme->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -79,10 +82,43 @@ final class CompanyController extends AbstractController
 
             return $this->redirectToRoute('app_company_edit', ['id' => $company->getId()], Response::HTTP_SEE_OTHER);
         }
+
+                if ($formTheme->isSubmitted() && $formTheme->isValid()) {
+            dd($formTheme->getData());
+            $entityManager->flush();
+            return $this->redirectToRoute('app_company_theme', ['id' => $company->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         
         return $this->render('company/edit.html.twig', [
             'company' => $company,
             'form' => $form,
+            'formTheme' => $formTheme
+        ]);
+    }
+
+    #[Route('/{id}/theme', name: 'app_company_theme', methods: ['GET', 'POST'])]
+    public function editTheme(Request $request, Company $company, EntityManagerInterface $entityManager): Response
+    {
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        $company = $user->getCompany();
+
+        $formTheme = $this->createForm(CompanyInvoiceThemeType::class, $company);
+        $formTheme->handleRequest($request);
+
+        if ($formTheme->isSubmitted() && $formTheme->isValid()) {
+            $data = $formTheme->getData();
+            $color = $data->getInvoicePrimaryColor();
+            $entityManager->persist($company);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_company_theme', ['id' => $company->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        
+        return $this->render('company/edit_theme.html.twig', [
+            'company' => $company,
+            'formTheme' => $formTheme
         ]);
     }
 

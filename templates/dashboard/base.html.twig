@@ -67,9 +67,17 @@
 
 					{% if app.user.getCompany() %}
 						<li class="">
-							<a class=" {% if app.request.attributes.get('_route') starts with 'app_company' %}active{% endif %}" href="{{ path('app_company_edit', {'id': app.user.company.id}) }}">
+							<a class=" {% if app.request.attributes.get('_route') starts with 'app_company_edit' %}active{% endif %}" href="{{ path('app_company_edit', {'id': app.user.company.id}) }}">
 								{{ ux_icon('mdi:company') }} 
 								<span>Mes informations</span>
+							</a>
+						</li> 
+					{% endif %}
+					{% if app.user.getCompany() %}
+						<li class="">
+							<a class=" {% if app.request.attributes.get('_route') starts with 'app_company_theme' %}active{% endif %}" href="{{ path('app_company_theme', {'id': app.user.company.id}) }}">
+								{{ ux_icon('mdi:company') }} 
+								<span>Choisir mon design</span>
 							</a>
 						</li> 
 					{% endif %}

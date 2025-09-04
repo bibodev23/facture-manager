@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 /**
- * Enum class representing the status of a book.
+ * Enum class representing the status of a invoice.
  */
 use Symfony\Component\Form\FormTypeInterfac;
 

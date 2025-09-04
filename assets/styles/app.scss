@@ -25,6 +25,9 @@ $color-red: rgb(236, 101, 101);
 @import "home.scss";
 @import "login.scss";
 @import "dashboard.scss";
+@import "invoice.scss";
+@import "invoice_preview.scss";
+
 
 .container {
     width: 100vw;
@@ -313,6 +316,12 @@ form {
 .form-company {
     width: 100%;
 }
+.form-theme {
+    input[type="color"] {
+        width: 50px;
+        height: 50px;
+    }
+}
 
 table {
     width: 100%;
@@ -453,81 +462,7 @@ select, select::picker(select) {
         }
     }
 }
-.page-content.page-invoice {
-    section {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        .invoice-page {
-            width: 600px;
-            height: 846px;
-            border: 1px solid rgba(0, 0, 0, 0.384);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.139);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
-            div {
-                width: 100%;
-            }
-            .header,
-            .address {
-                display: flex;
-                justify-content: space-between;
-            }
-            .address {
-                .company {
-                    width: 55%;
-                }
-                .customer {
-                    border: 1px solid blue;
-                    width: 45%;
-                }
-            }
-            .deliveries {
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 20px;
-                    th,
-                    td {
-                        padding: 12px;
-                        text-align: left;
-                        border-bottom: 1px solid #ddd;
-                    }
-                    th {
-                        background-color: $color-blue;
-                        color: white;
-                        font-weight: bold;
-                    }
-                }
-            }
-            .total {
-                display: flex;
-                align-items: end;
-                flex-direction: column;
-                font-weight: 600;
-                border: 1px solid red;
-                p {
-                    display: flex;
-                    span {
-                    display: flex;
-                    justify-content: end;
-                    width: 100px;
-                }
-                }
 
-                
-            }
-        }
-        .invoice-actions {
-            border: 1px solid rgba(0, 0, 0, 0.384);
-            width: 320px;
-            max-width: 400px;
-            padding: 20px;
-        }
-    }
-}
 
 
 textarea {

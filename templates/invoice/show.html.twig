@@ -2,6 +2,18 @@
 
 {% block title %}Facture{% endblock %}
 
+{% block stylesheets %}
+    <style>
+    .line-top, .line-bottom, table thead {
+        background: {{ invoice.company.invoicePrimaryColor  }};
+    }
+    .invoice-page {
+        color: {{ invoice.company.invoicePrimaryColor  }};
+    }
+    </style>
+
+{% endblock %}
+
 {% block page_title %}
    Facture n°{{ invoice.number }} - {{ invoice.customer.name }}
 {% endblock %}
@@ -12,6 +24,7 @@
 
     <section>
         <div class="invoice-page">
+            <div class="line-top"></div>
             <div class="header">
                 <h1>Facture</h1>
                 <p>N° {{ invoice.number }}</p>
@@ -39,6 +52,10 @@
                 <p>Date d'echeance : {{ invoice.dueDate ? invoice.dueDate|date('d/m/Y') : '' }}</p>
                 <p>Iban : {{ app.user.company.iban }}</p>
             </div>
+{# 
+            <div class="notes">
+                <p>Notes : {{ invoice.notes ? invoice.notes : 'Pas d\'observations' }}</p>
+            </div> #}
 
             <div class="deliveries">
                 <table class="table">
@@ -65,15 +82,15 @@
                 <p>Total HT : <span>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</span></p>
                 <p>TVA : <span>{{ invoice.totalTVA|number_format(2, ',', ' ') }} €</span> </p>
                 <p>Total TTC : <span>{{ invoice.totalTTC|number_format(2, ',', ' ') }} €</span> </p>
-            </div>
-
-            <div class="notes">
-                <p>Notes : {{ invoice.notes ? invoice.notes : 'Pas d\'observations' }}</p>
+                <div class="message">
+                            <p>AUCUN ESCOMPTE NE SERA DÉCOMPTÉ EN CAS DE PAIEMENT ANTICIPÉ. TOUTE FACTURE NON RÉGLÉE À DATE D'ÉCHÉANCE PORTERA INTÉRÊT DE
+                            RETARD ÉGAL À 3 FOIS LE TAUX D'INTÉRÊT LÉGAL ET D'UNE INDEMNITÉ FORFAITAIRE DE 40 EUROS POUR FRAIS DE RECOUVREMENT DES CRÉANCES</p></div>
             </div>
 
             <div class="footer">
                SIRET :{{app.user.company.siret}}
             </div>
+            <div class="line-bottom"></div>
         </div>
 
         <div class="invoice-actions">

@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use App\Enum\ThemeSelection;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company
@@ -75,13 +78,25 @@ class Company
     private Collection $deliveries;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $logo = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $bic = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $siren = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $invoicePrimaryColor = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $invoiceTextColor = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $logo = null;
+
+    #[Vich\UploadableField(mapping: 'logos', fileNameProperty: 'logo')]
+    private ?File $logoFile = null;
+
+    #[ORM\Column(type: 'string', enumType: ThemeSelection::class ,nullable: true)]
+    private ?string $themeSelection = null;
 
     public function __construct()
     {
@@ -368,18 +383,6 @@ class Company
             ->reduce(fn(float $carry, float $amount) => $carry + $amount, 0);
     }
 
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    public function setLogo(?string $logo): static
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
     public function getBic(): ?string
     {
         return $this->bic;
@@ -400,6 +403,70 @@ class Company
     public function setSiren(?string $siren): static
     {
         $this->siren = $siren;
+
+        return $this;
+    }
+
+    public function getInvoicePrimaryColor(): ?string
+    {
+        return $this->invoicePrimaryColor;
+    }
+
+    public function setInvoicePrimaryColor(?string $invoicePrimaryColor): static
+    {
+        $this->invoicePrimaryColor = $invoicePrimaryColor;
+
+        return $this;
+    }
+
+    public function getInvoiceTextColor(): ?string
+    {
+        return $this->invoiceTextColor;
+    }
+
+    public function setInvoiceTextColor(?string $invoiceTextColor): static
+    {
+        $this->invoiceTextColor = $invoiceTextColor;
+
+        return $this;
+    }
+    
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): static
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of logoFile
+     */
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * Set the value of logoFile
+     */
+    public function setLogoFile(?File $logoFile): void
+    {
+        $this->logoFile = $logoFile;
+    }
+
+    public function getThemeSelection(): ?ThemeSelection
+    {
+        return $this->themeSelection;
+    }
+
+    public function setThemeSelection(?ThemeSelection $themeSelection): static
+    {
+        $this->themeSelection = $themeSelection;
 
         return $this;
     }
