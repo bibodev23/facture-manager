@@ -7,14 +7,14 @@ namespace App\Enum;
 
 enum ThemeSelection: string
 {
-    case DefaultTheme = 'default-theme';
-    case AlternativeTheme = 'alternative-theme';
+    case DefaultTheme = 'default';
+    case AlternativeTheme = 'alternative';
     
     public function getLabel(): string
     {
         return match ($this) {
-            self::DefaultTheme => 'Thème par défaut',
-            self::AlternativeTheme => 'Thème alternatif',
+            self::DefaultTheme => 'Sans logo',
+            self::AlternativeTheme => 'Avec logo',
         };
     }
 }

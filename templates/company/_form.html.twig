@@ -1,12 +1,22 @@
 {{ form_start(form) }}
     <div>
         <h2>Coordonnées</h2>
-        <div class="input-group">
-            {{ form_label(form.name, 'Nom de l\'entreprise *') }}
-            <div class="input-pencil">
-                {{ form_widget(form.name) }}
-                {{ ux_icon('bx:building') }}
+        <div class="two-columns">
+            <div class="input-group">
+                {{ form_label(form.name, 'Nom de l\'entreprise *') }}
+                 <div class="input-pencil">
+                    {{ form_widget(form.name) }}
+                    {{ ux_icon('bx:building') }}
+                </div>
             </div>
+            <div class="input-group">
+                {{ form_label(form.legalForm, 'Forme juridique *') }}
+                <div class="input-pencil">
+                 {{ form_widget(form.legalForm) }}
+                 </div>
+            </div>
+        </div>
+
         <div class="two-columns">
             <div class="input-group">
                 {{ form_label(form.address1, 'Adresse *') }}
@@ -78,28 +88,28 @@
             </div>
         </div>
        
-        <div class="input-group">
+       <div class="two-columns">
+                <div class="input-group">
             {{ form_label(form.tvaNumber, 'Numéro de TVA *') }}
             <div class="input-pencil">
                 {{ form_widget(form.tvaNumber) }}
                 {{ ux_icon('bi:pencil') }}
             </div>
         </div>
-        <div class="two-columns">
-                    <div class="input-group">
+        <div class="input-group">
+            {{ form_label(form.rcs, 'Ville de votre RCS *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.rcs) }}
+                {{ ux_icon('bi:pencil') }}
+            </div>
+        </div>
+       </div>
+        <div class="input-group">
             {{ form_label(form.iban, 'IBAN *') }}
             <div class="input-pencil">
                 {{ form_widget(form.iban) }}
                 {{ ux_icon('bi:bank') }}
             </div>
-        </div>
-                    <div class="input-group">
-            {{ form_label(form.bic, 'BIC *') }}
-            <div class="input-pencil">
-                {{ form_widget(form.bic) }}
-                {{ ux_icon('bi:bank') }}
-            </div>
-        </div>
         </div>
 
         <div class="input-group">

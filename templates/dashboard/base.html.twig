@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,7 +77,7 @@
 						<li class="">
 							<a class=" {% if app.request.attributes.get('_route') starts with 'app_company_theme' %}active{% endif %}" href="{{ path('app_company_theme', {'id': app.user.company.id}) }}">
 								{{ ux_icon('mdi:company') }} 
-								<span>Choisir mon design</span>
+								<span>Personnaliser ma facture</span>
 							</a>
 						</li> 
 					{% endif %}

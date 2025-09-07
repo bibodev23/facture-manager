@@ -1,27 +1,34 @@
 {{ form_start(formTheme) }}
-    <div>
-        <h2>Design de votre facture</h2>
-        <div class="input-group">
-            {{ form_label(formTheme.logoFile, 'Logo') }}
-            <div class="input-pencil">
-                {{ form_widget(formTheme.logoFile) }}
-            </div>
-        <div class="two-columns">
-            <div class="input-group">
-                {{ form_label(formTheme.invoicePrimaryColor, 'Couleur primaire') }}
-                <div class="input-pencil">
-                    {{ form_widget(formTheme.invoicePrimaryColor) }}
-                </div>
-            </div>
-            <div class="input-group">
-                {{ form_label(formTheme.invoiceTextColor, 'Couleur du texte') }}
-                <div class="input-pencil">
-                    {{ form_widget(formTheme.invoiceTextColor) }}
-                </div>
-            </div>
-        </div>
-    <button class="btn">{{ button_label|default('Appliquer le design') }}</button>
+<h2>Personnalisez votre facture</h2>
+<div class="input-group">
+	{{ form_label(formTheme.themeSelection, 'Choisissez votre thème') }}
+	<div class="list-cards">
+		{% for child in formTheme.themeSelection %}
+			<div class="input-card {{ child.vars.value }}" data-action="click->theme#switch{{ child.vars.value}}">
+				{{ form_widget(child) }}
+				{{ form_label(child, null, {'attr': {'data-action':'click->theme#switchTheme'}}) }}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+	<div class="input-group color">
+		{{ form_label(formTheme.invoicePrimaryColor, 'Couleur primaire :') }}
+		<div class="input-pencil">
+			{{ form_widget(formTheme.invoicePrimaryColor) }}
+		</div>
+	</div>
+	<div class="input-group color">
+		{{ form_label(formTheme.invoiceTextColor, 'Couleur du texte :') }}
+		<div class="input-pencil">
+			{{ form_widget(formTheme.invoiceTextColor) }}
+		</div>
+	</div>
+<div class="input-group input-logo {{ themeDefault ? 'd-none' : '' }}" data-theme-target="inputLogo">
+	{{ form_label(formTheme.logoFile, 'Importez votre logo') }}
+	<div class="input-pencil">
+		{{ form_widget(formTheme.logoFile) }}
+	</div>
+	<span>{{ ux_icon('bi:info-circle') }} Optimisez votre affichage en utilisant un logo transparent via l'outil gratuit <a href="https://www.remove.bg/" target="_blank">Remove Background</a></span>
+</div>
+<button class="btn">{{ button_label|default('Appliquer le design') }}</button>
 {{ form_end(formTheme) }}
-<br>
-<strong>* champs obligatoires présents sur la facture</strong>
-

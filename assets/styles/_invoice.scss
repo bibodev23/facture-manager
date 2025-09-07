@@ -3,10 +3,9 @@
         display: flex;
         justify-content: center;
         gap: 40px;
-        .theme-1 {
+        .invoice-page {
             width: 600px;
             height: 846px;
-            border: 2px solid rgba(0, 0, 0, 0.384);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.139);
             display: flex;
             flex-direction: column;
@@ -15,82 +14,15 @@
             padding-top: 80px;
             font-size: 14px;
             position: relative;
-            div {
-                width: 100%;
+            overflow: hidden;
+            &.d-none {
+                display: none;
             }
-            .line-top,
-            .line-bottom {
-                position: absolute;
-                left: 0;
-                height: 40px;
-                width: 100%;
-            }
-            .line-top {
-                top: 0;
-            }
-            .line-bottom {
-                bottom: 0;
-            }
-            .header,
-            .address {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .header {
-                border: 2px solid rgb(165, 47, 255);
-                h1{
-                    font-size: 50px;
-                    text-transform: uppercase;
-                    font-weight: bold;
-                    letter-spacing: 3px;
-                }
-            }
-            .address {
-                border: 2px solid rgb(5, 140, 29);
-                span {
-                    font-weight: 700;
-                }
-                .company {
-                    width: 55%;
-    
-                }
-                .customer {
-                    width: 45%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: end;
-                    align-items: end;
-                    
-                }
-            }
-            .deliveries-total {
-                border: 2px solid rgb(71, 47, 255);
-                // position: absolute;
-                // top: 60%;
-                // left: 50%;
-                // transform: translate(-50%, -50%);
-                min-height: 300px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            .deliveries {
-                border: 2px solid rgb(255, 57, 47);
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 20px;
-                    th,
-                    td {
-                        padding: 12px 0;
-                        text-align: left;
-                        border-bottom: 2px solid #ddd;
-                    }
-                    th {
-                        color: white;
-                        font-weight: bold;
-                    }
+            .message {
+                margin-top: 40px;
+                p {
+                    font-size: 10px;
+                    text-align: center;
                 }
             }
             .total {
@@ -98,7 +30,6 @@
                 align-items: end;
                 flex-direction: column;
                 font-weight: 600;
-                border: 2px solid rgb(255, 0, 230);
                 p {
                     display: flex;
                     span {
@@ -106,17 +37,13 @@
                         justify-content: end;
                         width: 100px;
                     }
-                }
-                .message {
-                    margin-top: 10px;
-                    p {
-                        font-size: 10px;
-                        text-align: center;
+                    &.total-ttc {
+                        font-weight: bold;
+                        span {
+                            font-weight: bold;
+                        }
                     }
                 }
-            }
-            .notes {
-                border: 2px solid rgb(255, 0, 25);
             }
             .footer {
                 position: absolute;
@@ -127,33 +54,175 @@
                 color: white;
                 display: flex;
                 justify-content: center;
-                height: 40px;
+                height: 60px;
                 align-items: center;
-                border: 2px solid rgb(255, 47, 71);
+                font-size: 12px;
+                text-align: center;
             }
         }
-        .theme-2 {
-            width: 600px;
-            height: 846px;
-            border: 2px solid rgba(0, 0, 0, 0.384);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.139);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 40px;
-            padding-top: 80px;
-            font-size: 14px;
-            position: relative;
+        .theme1 {
             div {
                 width: 100%;
             }
-            .line-top,
-            .line-bottom {
-                display: none;
+            .header,
+            .footer {
+                position: absolute;
+                left: 0;
+                height: 40px;
+                width: 100%;
+            }
+            .header {
+                top: 0;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 30px;
+                color: white;
+            }
+            .header,
+            .address {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .header {
+                h1,
+                p {
+                    font-size: 38px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    letter-spacing: 3px;
+                }
+            }
+            .address {
+                margin-top: 60px;
+                span {
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+                .company {
+                    width: 55%;
+                }
+                .customer {
+                    width: 45%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: end;
+                    align-items: end;
+                }
+            }
+            .deliveries-total {
+                // border: 2px solid rgb(71, 47, 255);
+                // position: absolute;
+                // top: 60%;
+                // left: 50%;
+                // transform: translate(-50%, -50%);
+                min-height: 300px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .deliveries {
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                    th,
+                    td {
+                        padding: 12px 0;
+                        text-align: left;
+                        border-bottom: 2px solid #ddd;
+                        width: 15%;
+                    }
+                    th {
+                        color: white;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    thead {
+                        th.amount {
+                            text-align: center;
+                        }
+                    }
+                    .description {
+                        width: 60%;
+                        text-align: center;
+                    }
+
+                    tbody {
+                        td.description {
+                            text-align: left;
+                        }
+                    }
+                    .amount {
+                        text-align: end;
+                    }
+                }
+            }
+            .notes {
+                border: 2px solid rgb(255, 0, 25);
+            }
+        }
+        .theme2 {
+            gap: 20px;
+            padding-top: 20px;
+            padding: 20px;
+            .border {
+                width: fit-content;
+                padding: 20px 10px;
+                border-radius: 20px;
+            }
+            .header,
+            .address {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+            }
+            .deliveries-total {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                table {
+                    font-size: 12px;
+                    margin-bottom: 0;
+                    td {
+                        padding: 4px;
+                    }
+                }
+                .total {
+                    width: 200px;
+                    margin-top: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                    p {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    span {
+                        display: flex;
+                        width: 50%;
+                        justify-content: end;
+                    }
+                }
+                .message {
+                    margin-top: 20px;
+                }
+            }
+            .footer {
+                width: 100%;
+                color: black;
             }
         }
         .invoice-actions {
-            border: 2px solid rgba(0, 0, 0, 0.384);
+            // border: 2px solid rgba(0, 0, 0, 0.384);
             width: 320px;
             max-width: 400px;
             padding: 20px;

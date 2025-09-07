@@ -1,173 +1,49 @@
 {% extends 'dashboard/base.html.twig' %}
 {% block stylesheets %}
-    <style>
-    .page-preview {
-        display: flex;
-        gap: 40px;
-        justify-content: center;
-    }
+	<style>
+		.page-preview {
+			display: flex;
+			gap: 40px;
+			justify-content: center;
+		}
 
-    .form-theme {
-        display: flex;
-        max-width: 400px;
-        border: 1px solid rgba(0, 0, 0, 1);
-    }
-    .line-top, .line-bottom, table thead {
-        background: {{ company.invoicePrimaryColor  }};
-    }
-    .dashboard-container .page .page-content section.invoice-preview {
-        max-width: 600px;
-        padding: 0px;
-    }
-    .invoice-page {
-        color: {{ company.invoiceTextColor  }};
-    }
-    </style>
+			.form-theme {
+				display: flex;
+				max-width: 400px;
+				border: 1px solid rgba(0, 0, 0, 1);
+			}
+		
+		table thead,
+		.dashboard-container .page .page-content section.invoice-preview {
+			max-width: 600px;
+			padding: 0;
+		}
+		.invoice-page.theme1 {
+			color: {{company.invoiceTextColor}};
+			.header, .footer{
+				background: {{company.invoicePrimaryColor}}
+			}
+		}
+		.invoice-page.theme2 {
+			.border {
+				border: 1px solid {{company.invoicePrimaryColor}}
+			}
+		}
+	</style>
+{% endblock %}
 
-{% endblock %} 
-
-{% block title %}Paramétrages du design{% endblock %}
-{% block page_title %}Paramétrages du designe{% endblock %}
+{% block title %}Paramétrages du design
+{% endblock %}
+{% block page_title %}Apparence de la facture
+{% endblock %}
 {% block body %}
-<div class="page-content page-preview page-invoice">
-    <section class="form form-company form-theme">
-        {{ include('company/_form_theme.html.twig', {'button_label': 'Mettre à jour'}) }}
-    </section>
-    <section class="invoice-preview">
-    <div class="invoice-page theme-1">
-        <div class="line-top"></div>
-            <div class="header">
-                <h1>Facture</h1>
-                <p>N° 001</p>
-            </div>
-            <div class="address">
-                <div class="company">
-                <span>Émetteur</span>
-                    <p>{{ company.name|upper }}</p>
-                    <p>{{ company.address1 }}</p>
-                    {% if company.address2 is not empty %}
-                        {{ company.address2 }}
-                    {% endif %}
-                    <p>{{ app.user.company.postalCode }} {{ app.user.company.city }}</p>
-                </div>
-                <div class="customer">
-                <span>Destinataire</span>
-                    <p>Société Webmove</p>
-                    <p>1 boulevard de la liberté</p>
-                    <p>75001 Paris</p>
-                </div>
-            </div>
-            <div class="date">
-                <p>Date de facturation : 20/11/2025</p>
-                <p>Date d'echeance : 20/12/2025</p>
-                <p>Iban : FR76 3000 0000 0000 0000 0000 000</p>
-            </div>
-
-            <div class="notes">
-                <p>Notes : Pas d'observations</p>
-            </div> 
-            <div class="deliveries-total ">
-                <div class="deliveries">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th> 
-                            <th>Description</th>    
-                            <th>Montant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr>
-                                <td>01/01/2025</td>
-                                <td>Livraison Paris Marseille REF3735246 Livraison Paris Marseille REF3735246</td>
-                                <td>4 000,00 €</td>
-                            </tr>
-                    </tbody>       
-                </table>
-            </div>
-
-            <div class="total">
-                <p>Total HT : <span>4 000,00 €</span></p>
-                <p>TVA : <span>800,00 €</span> </p>
-                <p>Total TTC : <span>4 800,00 €</span> </p>
-                <div class="message">
-                            <p>AUCUN ESCOMPTE NE SERA DÉCOMPTÉ EN CAS DE PAIEMENT ANTICIPÉ. TOUTE FACTURE NON RÉGLÉE À DATE D'ÉCHÉANCE PORTERA INTÉRÊT DE
-                            RETARD ÉGAL À 3 FOIS LE TAUX D'INTÉRÊT LÉGAL ET D'UNE INDEMNITÉ FORFAITAIRE DE 40 EUROS POUR FRAIS DE RECOUVREMENT DES CRÉANCES</p></div>
-            </div>
-            </div>
-
-
-            <div class="footer">
-               SIRET :{{app.user.company.siret}}
-            </div>
-            <div class="line-bottom"></div>
-    </div>
-
-     {# <div class="invoice-page theme-2">
-        <div class="line-top"></div>
-            <div class="header">
-                <h1>Facture</h1>
-                <p>N° 001</p>
-            </div>
-            <div class="address">
-                <div class="company">
-                    <p>{{ company.name|upper }}</p>
-                    <p>{{ company.address1 }}</p>
-                    {% if company.address2 is not empty %}
-                        {{ company.address2 }}
-                    {% endif %}
-                    <p>{{ app.user.company.postalCode }} {{ app.user.company.city }}</p>
-                </div>
-                <div class="customer">
-                    <p>Société Webmove</p>
-                    <p>1 boulevard de la liberté</p>
-                    <p>75001 Paris</p>
-                </div>
-            </div>
-            <div class="date">
-                <p>Date de facturation : 20/11/2025</p>
-                <p>Date d'echeance : 20/12/2025</p>
-                <p>Iban : FR76 3000 0000 0000 0000 0000 000</p>
-            </div>
-
-            <div class="notes">
-                <p>Notes : Pas d'observations</p>
-            </div>
-
-            <div class="deliveries">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th> 
-                            <th>Description</th>    
-                            <th>Montant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr>
-                                <td>01/01/2025</td>
-                                <td>Livraison Paris Marseille REF3735246</td>
-                                <td>4 000,00 €</td>
-                            </tr>
-                    </tbody>       
-                </table>
-            </div>
-
-            <div class="total">
-                <p>Total HT : <span>4 000,00 €</span></p>
-                <p>TVA : <span>800,00 €</span> </p>
-                <p>Total TTC : <span>4 800,00 €</span> </p>
-                <div class="message">
-                            <p>AUCUN ESCOMPTE NE SERA DÉCOMPTÉ EN CAS DE PAIEMENT ANTICIPÉ. TOUTE FACTURE NON RÉGLÉE À DATE D'ÉCHÉANCE PORTERA INTÉRÊT DE
-                            RETARD ÉGAL À 3 FOIS LE TAUX D'INTÉRÊT LÉGAL ET D'UNE INDEMNITÉ FORFAITAIRE DE 40 EUROS POUR FRAIS DE RECOUVREMENT DES CRÉANCES</p></div>
-            </div>
-
-            <div class="footer">
-               SIRET :{{app.user.company.siret}}
-            </div>
-            <div class="line-bottom"></div>
-    </div> #}
-            
-    </section>
-</div>
+	<div class="page-content page-preview page-invoice" data-controller="theme">
+		<section class="form form-company form-theme">
+			{{ include('company/_form_theme.html.twig', {'button_label': 'Appliquer'}) }}
+		</section>
+		<section class="invoice-preview">
+			{{ include('invoice/_theme_default.html.twig') }}
+			{{ include('invoice/_theme_logo.html.twig') }}
+		</section>
+	</div>
 {% endblock %}

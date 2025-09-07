@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\LegalForm;
 use App\Enum\ThemeSelection;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,7 +25,6 @@ class Company
 
     #[ORM\OneToOne(mappedBy: 'company', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private ?User $user = null;
-
 
     #[ORM\Column(length: 14, unique: true, nullable: true)]
     #[Assert\NotBlank]
@@ -95,8 +95,17 @@ class Company
     #[Vich\UploadableField(mapping: 'logos', fileNameProperty: 'logo')]
     private ?File $logoFile = null;
 
-    #[ORM\Column(type: 'string', enumType: ThemeSelection::class ,nullable: true)]
-    private ?string $themeSelection = null;
+    #[ORM\Column(enumType: ThemeSelection::class, type: 'string' ,nullable: true)]
+    private ?ThemeSelection $themeSelection = null;
+
+    #[ORM\Column( enumType: LegalForm::class, type: 'string', nullable: true)]
+    private ?LegalForm $legalForm = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $shareCapital = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $rcs = null;
 
     public function __construct()
     {
@@ -457,6 +466,9 @@ class Company
     public function setLogoFile(?File $logoFile): void
     {
         $this->logoFile = $logoFile;
+        // if ($logoFile) {
+        //     $this->updatedAt = new \DateTime('now');
+        // }
     }
 
     public function getThemeSelection(): ?ThemeSelection
@@ -467,6 +479,42 @@ class Company
     public function setThemeSelection(?ThemeSelection $themeSelection): static
     {
         $this->themeSelection = $themeSelection;
+
+        return $this;
+    }
+
+    public function getLegalForm(): ?LegalForm
+    {
+        return $this->legalForm;
+    }
+
+    public function setLegalForm(?LegalForm $legalForm): static
+    {
+        $this->legalForm = $legalForm;
+
+        return $this;
+    }
+
+    public function getShareCapital(): ?string
+    {
+        return $this->shareCapital;
+    }
+
+    public function setShareCapital(?string $shareCapital): static
+    {
+        $this->shareCapital = $shareCapital;
+
+        return $this;
+    }
+
+    public function getRcs(): ?string
+    {
+        return $this->rcs;
+    }
+
+    public function setRcs(?string $rcs): static
+    {
+        $this->rcs = $rcs;
 
         return $this;
     }

@@ -1,0 +1,74 @@
+<div class="invoice-page theme1 {{ themeDefault ? '' : 'd-none'}}" data-theme-target="theme1">
+            <div class="header">
+                <h1>Facture</h1>
+                <p>N° 001</p>
+            </div>
+            <div class="address">
+                <div class="company">
+                <span>Émetteur</span>
+                    <p>{{ company.name|upper }}</p>
+                    <p>{{ company.address1 }}</p>
+                    {% if company.address2 is not empty %}
+                        {{ company.address2 }}
+                    {% endif %}
+                    <p>{{ company.postalCode }} {{ company.city }}</p>
+                </div>
+                <div class="customer">
+                <span>Destinataire</span>
+                    <p>Société Webmove</p>
+                    <p>1 boulevard de la liberté</p>
+                    <p>75001 Paris</p>
+                </div>
+            </div>
+            <div class="date">
+                <p>Date de facturation : 20/11/2025</p>
+                <p>Date d'échéance : 20/12/2025</p>
+                <br>
+                <p>Mode de paiement : Virement</p>
+                <p>Iban : FR76 3000 0000 0000 0000 0000 000</p>
+            </div>
+            <div class="deliveries-total ">
+                <div class="deliveries">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th> 
+                            <th class="description">Description</th>    
+                            <th class="amount">Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>01/01/2025</td>
+                                <td class="description">Livraison Paris Marseille REF3735246 CMR n° 3735246 Livraison Paris Marseille REF3735246 CMR n° 3735246</td>
+                                <td class="amount">4 000,00 €</td>
+                            </tr>
+                            <tr>
+                                <td>01/12/2025</td>
+                                <td class="description">Livraison Paris Marseille REF3735246 Livraison Paris Marseille REF3735246</td>
+                                <td class="amount">300,00 €</td>
+                            </tr>
+                            <tr>
+                                <td>27/04/2025</td>
+                                <td class="description">Livraison Paris Marseille REF3735246</td>
+                                <td class="amount">16 000,00 €</td>
+                            </tr>
+                    </tbody>       
+                </table>
+            </div>
+
+            <div class="total">
+                <p>Total HT : <span>4 000,00 €</span></p>
+                <p>TVA : <span>800,00 €</span> </p>
+                <p class="total-ttc">Total TTC : <span>40 800,00 €</span> </p>
+                <div class="message">
+                            <p>AUCUN ESCOMPTE NE SERA DÉCOMPTÉ EN CAS DE PAIEMENT ANTICIPÉ. TOUTE FACTURE NON RÉGLÉE À DATE D'ÉCHÉANCE PORTERA INTÉRÊT DE
+                            RETARD ÉGAL À 3 FOIS LE TAUX D'INTÉRÊT LÉGAL ET D'UNE INDEMNITÉ FORFAITAIRE DE 40 EUROS POUR FRAIS DE RECOUVREMENT DES CRÉANCES</p></div>
+            </div>
+            </div>
+
+
+            <div class="footer">
+              {{ company.name|upper }} {{company.legalForm.getLabel()|default('????')}} au capital de {{company.shareCapital|default('????')}} - RCS {{company.rcs|default('????')}} <br>  SIRET :{{company.siret}} - TVA : {{company.tvaNumber}} <br> {{company.phone}} - {{company.email}}
+            </div>
+    </div>

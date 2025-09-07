@@ -556,10 +556,9 @@
   justify-content: center;
   gap: 40px;
 }
-.page-content.page-invoice section .theme-1 {
+.page-content.page-invoice section .invoice-page {
   width: 600px;
   height: 846px;
-  border: 2px solid rgba(0, 0, 0, 0.384);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.139);
   display: flex;
   flex-direction: column;
@@ -568,104 +567,39 @@
   padding-top: 80px;
   font-size: 14px;
   position: relative;
+  overflow: hidden;
 }
-.page-content.page-invoice section .theme-1 div {
-  width: 100%;
+.page-content.page-invoice section .invoice-page.d-none {
+  display: none;
 }
-.page-content.page-invoice section .theme-1 .line-top,
-.page-content.page-invoice section .theme-1 .line-bottom {
-  position: absolute;
-  left: 0;
-  height: 40px;
-  width: 100%;
+.page-content.page-invoice section .invoice-page .message {
+  margin-top: 40px;
 }
-.page-content.page-invoice section .theme-1 .line-top {
-  top: 0;
+.page-content.page-invoice section .invoice-page .message p {
+  font-size: 10px;
+  text-align: center;
 }
-.page-content.page-invoice section .theme-1 .line-bottom {
-  bottom: 0;
-}
-.page-content.page-invoice section .theme-1 .header,
-.page-content.page-invoice section .theme-1 .address {
-  display: flex;
-  justify-content: space-between;
-}
-.page-content.page-invoice section .theme-1 .header {
-  border: 2px solid rgb(165, 47, 255);
-}
-.page-content.page-invoice section .theme-1 .header h1 {
-  font-size: 50px;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 3px;
-}
-.page-content.page-invoice section .theme-1 .address {
-  border: 2px solid rgb(5, 140, 29);
-}
-.page-content.page-invoice section .theme-1 .address span {
-  font-weight: 700;
-}
-.page-content.page-invoice section .theme-1 .address .company {
-  width: 55%;
-}
-.page-content.page-invoice section .theme-1 .address .customer {
-  width: 45%;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: end;
-}
-.page-content.page-invoice section .theme-1 .deliveries-total {
-  border: 2px solid rgb(71, 47, 255);
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.page-content.page-invoice section .theme-1 .deliveries {
-  border: 2px solid rgb(255, 57, 47);
-}
-.page-content.page-invoice section .theme-1 .deliveries table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-.page-content.page-invoice section .theme-1 .deliveries table th,
-.page-content.page-invoice section .theme-1 .deliveries table td {
-  padding: 12px 0;
-  text-align: left;
-  border-bottom: 2px solid #ddd;
-}
-.page-content.page-invoice section .theme-1 .deliveries table th {
-  color: white;
-  font-weight: bold;
-}
-.page-content.page-invoice section .theme-1 .total {
+.page-content.page-invoice section .invoice-page .total {
   display: flex;
   align-items: end;
   flex-direction: column;
   font-weight: 600;
-  border: 2px solid rgb(255, 0, 230);
 }
-.page-content.page-invoice section .theme-1 .total p {
+.page-content.page-invoice section .invoice-page .total p {
   display: flex;
 }
-.page-content.page-invoice section .theme-1 .total p span {
+.page-content.page-invoice section .invoice-page .total p span {
   display: flex;
   justify-content: end;
   width: 100px;
 }
-.page-content.page-invoice section .theme-1 .total .message {
-  margin-top: 10px;
+.page-content.page-invoice section .invoice-page .total p.total-ttc {
+  font-weight: bold;
 }
-.page-content.page-invoice section .theme-1 .total .message p {
-  font-size: 10px;
-  text-align: center;
+.page-content.page-invoice section .invoice-page .total p.total-ttc span {
+  font-weight: bold;
 }
-.page-content.page-invoice section .theme-1 .notes {
-  border: 2px solid rgb(255, 0, 25);
-}
-.page-content.page-invoice section .theme-1 .footer {
+.page-content.page-invoice section .invoice-page .footer {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -674,35 +608,259 @@
   color: white;
   display: flex;
   justify-content: center;
-  height: 40px;
+  height: 60px;
   align-items: center;
-  border: 2px solid rgb(255, 47, 71);
+  font-size: 12px;
+  text-align: center;
 }
-.page-content.page-invoice section .theme-2 {
-  width: 600px;
-  height: 846px;
-  border: 2px solid rgba(0, 0, 0, 0.384);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.139);
+.page-content.page-invoice section .theme1 div {
+  width: 100%;
+}
+.page-content.page-invoice section .theme1 .header,
+.page-content.page-invoice section .theme1 .footer {
+  position: absolute;
+  left: 0;
+  height: 40px;
+  width: 100%;
+}
+.page-content.page-invoice section .theme1 .header {
+  top: 0;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  color: white;
+}
+.page-content.page-invoice section .theme1 .header,
+.page-content.page-invoice section .theme1 .address {
+  display: flex;
+  justify-content: space-between;
+}
+.page-content.page-invoice section .theme1 .header h1,
+.page-content.page-invoice section .theme1 .header p {
+  font-size: 38px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+.page-content.page-invoice section .theme1 .address {
+  margin-top: 60px;
+}
+.page-content.page-invoice section .theme1 .address span {
+  font-weight: 700;
+  font-size: 18px;
+}
+.page-content.page-invoice section .theme1 .address .company {
+  width: 55%;
+}
+.page-content.page-invoice section .theme1 .address .customer {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+}
+.page-content.page-invoice section .theme1 .deliveries-total {
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px;
-  padding-top: 80px;
-  font-size: 14px;
-  position: relative;
 }
-.page-content.page-invoice section .theme-2 div {
+.page-content.page-invoice section .theme1 .deliveries table {
   width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
-.page-content.page-invoice section .theme-2 .line-top,
-.page-content.page-invoice section .theme-2 .line-bottom {
-  display: none;
+.page-content.page-invoice section .theme1 .deliveries table th,
+.page-content.page-invoice section .theme1 .deliveries table td {
+  padding: 12px 0;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  width: 15%;
+}
+.page-content.page-invoice section .theme1 .deliveries table th {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.page-content.page-invoice section .theme1 .deliveries table thead th.amount {
+  text-align: center;
+}
+.page-content.page-invoice section .theme1 .deliveries table .description {
+  width: 60%;
+  text-align: center;
+}
+.page-content.page-invoice section .theme1 .deliveries table tbody td.description {
+  text-align: left;
+}
+.page-content.page-invoice section .theme1 .deliveries table .amount {
+  text-align: end;
+}
+.page-content.page-invoice section .theme1 .notes {
+  border: 2px solid rgb(255, 0, 25);
+}
+.page-content.page-invoice section .theme2 {
+  gap: 20px;
+  padding-top: 20px;
+  padding: 20px;
+}
+.page-content.page-invoice section .theme2 .border {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 20px 10px;
+  border-radius: 20px;
+}
+.page-content.page-invoice section .theme2 .header,
+.page-content.page-invoice section .theme2 .address {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-content.page-invoice section .theme2 .logo {
+  display: flex;
+  align-items: center;
+}
+.page-content.page-invoice section .theme2 .deliveries-total {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.page-content.page-invoice section .theme2 .deliveries-total table {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.page-content.page-invoice section .theme2 .deliveries-total table td {
+  padding: 4px;
+}
+.page-content.page-invoice section .theme2 .deliveries-total .total {
+  width: 200px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.page-content.page-invoice section .theme2 .deliveries-total .total p {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-content.page-invoice section .theme2 .deliveries-total .total span {
+  display: flex;
+  width: 50%;
+  justify-content: end;
+}
+.page-content.page-invoice section .theme2 .deliveries-total .message {
+  margin-top: 20px;
+}
+.page-content.page-invoice section .theme2 .footer {
+  width: 100%;
+  color: black;
 }
 .page-content.page-invoice section .invoice-actions {
-  border: 2px solid rgba(0, 0, 0, 0.384);
   width: 320px;
   max-width: 400px;
   padding: 20px;
+}
+
+.list-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.list-cards .input-card input {
+  display: none;
+}
+.list-cards .input-card input[type=radio]:checked + label {
+  color: black;
+  border: 4px solid #0362b4;
+}
+.list-cards .input-card label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+  text-align: center;
+}
+.list-cards .input-card label:hover {
+  color: black;
+  border: 4px solid #0362b4;
+}
+
+.dashboard-container .page .page-content form .input-group.d-none {
+  display: none;
+}
+
+.dashboard-container .page .page-preview {
+  padding: 40px;
+  gap: 80px;
+}
+.dashboard-container .page .page-preview .form-theme {
+  align-items: center;
+  max-width: 500px;
+  border: none;
+}
+.dashboard-container .page .page-preview .form-theme form {
+  position: relative;
+  height: 100%;
+  background: white;
+  padding: 60px;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  border-radius: 50px;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.color {
+  flex-direction: row;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.color label {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.color .input-pencil {
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 0;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.color .input-pencil input[type=color] {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.input-logo svg {
+  width: 20px;
+  height: 20px;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.input-logo span {
+  font-size: 14px;
+}
+.dashboard-container .page .page-preview .form-theme form .input-group.input-logo span a {
+  text-decoration: underline;
+  color: orange;
+  font-weight: bold;
+}
+.dashboard-container .page .page-preview .form-theme form button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 auto;
+}
+.dashboard-container .page .page-preview .invoice-preview {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  background: white;
 }
 
 .container {
@@ -990,6 +1148,9 @@ svg {
   gap: 20px;
 }
 
+form {
+  width: 100%;
+}
 form h2 {
   background: none;
 }
@@ -1010,11 +1171,6 @@ form div {
 
 .form-company {
   width: 100%;
-}
-
-.form-theme input[type=color] {
-  width: 50px;
-  height: 50px;
 }
 
 table {

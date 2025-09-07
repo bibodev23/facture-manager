@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Enum\LegalForm;
+use App\Enum\ThemeSelection;
 use App\Form\CompanyInvoiceThemeType;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
@@ -71,6 +73,7 @@ final class CompanyController extends AbstractController
         $formTheme->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->flush();
 
             if (count($company->getCustomers()) < 1) {
@@ -103,22 +106,25 @@ final class CompanyController extends AbstractController
         /** @var \App\Entity\User */
         $user = $this->getUser();
         $company = $user->getCompany();
-
+        $themeDefault = true;
+        if ($company->getThemeSelection() === ThemeSelection::AlternativeTheme) {
+            $themeDefault = false;
+        }
         $formTheme = $this->createForm(CompanyInvoiceThemeType::class, $company);
         $formTheme->handleRequest($request);
 
         if ($formTheme->isSubmitted() && $formTheme->isValid()) {
-            $data = $formTheme->getData();
-            $color = $data->getInvoicePrimaryColor();
             $entityManager->persist($company);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre theme a bien été modifiée !');
             return $this->redirectToRoute('app_company_theme', ['id' => $company->getId()], Response::HTTP_SEE_OTHER);
         }
 
         
         return $this->render('company/edit_theme.html.twig', [
             'company' => $company,
-            'formTheme' => $formTheme
+            'formTheme' => $formTheme->createView(),
+            'themeDefault' => $themeDefault
         ]);
     }
 
