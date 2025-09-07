@@ -1,0 +1,16 @@
+	<div class="footer">
+		{{ company.name|upper }}
+		{{company.legalForm.getLabel()|default('????')}}
+		au capital de
+		{{company.shareCapital|default('????')}}
+		- RCS
+		{{company.rcs|default('????')}}
+		<br>
+		SIRET :{{company.siret}}
+		- TVA :
+		{{company.tvaNumber}}
+		<br>
+		{{company.phone}}
+		-
+		{{company.email}}
+	</div>

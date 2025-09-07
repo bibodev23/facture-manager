@@ -1,0 +1,19 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th class="description">Description</th>
+			<th class="amount">Montant</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for delivery in invoice.deliveries %}
+			<tr>
+				<td>{{ delivery.date ? delivery.date|date('d/m/Y') : '' }}</td>
+				<td class="description">{{ delivery.description }}</td>
+				<td class="amount">{{ delivery.amount|number_format(2, ',', ' ') }}
+					€</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

@@ -1,0 +1,10 @@
+		<div class="company">
+			<span>Émetteur</span>
+			<p>{{ company.name|upper }}</p>
+			<p>{{ company.address1 }}</p>
+			{% if company.address2 is not empty %}
+				{{ company.address2 }}
+			{% endif %}
+			<p>{{ company.postalCode }}
+				{{ company.city }}</p>
+		</div>

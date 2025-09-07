@@ -18,6 +18,55 @@
             &.d-none {
                 display: none;
             }
+            .deliveries-total {
+                min-height: 300px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .deliveries {
+                width: 100%;
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                    th,
+                    td {
+                        padding: 12px 0;
+                        text-align: left;
+                        border-bottom: 2px solid #ddd;
+                        width: 15%;
+                    }
+                    th {
+                        color: white;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    thead {
+                        th {
+                            &:nth-child(1) {
+                                text-align: left;
+                            }
+                            &:nth-child(3) {
+                                text-align: end;
+                            }
+                        }
+                    }
+                    .description {
+                        width: 60%;
+                        text-align: center;
+                    }
+
+                    tbody {
+                        td.description {
+                            text-align: center;
+                        }
+                    }
+                    .amount {
+                        text-align: end;
+                    }
+                }
+            }
             .message {
                 margin-top: 40px;
                 p {
@@ -47,6 +96,7 @@
             }
             .footer {
                 position: absolute;
+                width: 100%;
                 bottom: 0;
                 left: 50%;
                 transform: translateX(-50%);
@@ -64,8 +114,7 @@
             div {
                 width: 100%;
             }
-            .header,
-            .footer {
+            .header {
                 position: absolute;
                 left: 0;
                 height: 40px;
@@ -112,54 +161,6 @@
                     align-items: end;
                 }
             }
-            .deliveries-total {
-                // border: 2px solid rgb(71, 47, 255);
-                // position: absolute;
-                // top: 60%;
-                // left: 50%;
-                // transform: translate(-50%, -50%);
-                min-height: 300px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            .deliveries {
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 20px;
-                    th,
-                    td {
-                        padding: 12px 0;
-                        text-align: left;
-                        border-bottom: 2px solid #ddd;
-                        width: 15%;
-                    }
-                    th {
-                        color: white;
-                        font-weight: bold;
-                        text-align: center;
-                    }
-                    thead {
-                        th.amount {
-                            text-align: center;
-                        }
-                    }
-                    .description {
-                        width: 60%;
-                        text-align: center;
-                    }
-
-                    tbody {
-                        td.description {
-                            text-align: left;
-                        }
-                    }
-                    .amount {
-                        text-align: end;
-                    }
-                }
-            }
             .notes {
                 border: 2px solid rgb(255, 0, 25);
             }
@@ -182,34 +183,26 @@
             .logo {
                 display: flex;
                 align-items: center;
+                img {
+                    width: 200px;
+                    height: auto;
+                }
             }
             .deliveries-total {
                 display: flex;
                 flex-direction: column;
                 align-items: end;
+                .deliveries {
+                    width: 100%;
+                }
                 table {
                     font-size: 12px;
                     margin-bottom: 0;
+                    th {
+                        color: black;
+                    }
                     td {
                         padding: 4px;
-                    }
-                }
-                .total {
-                    width: 200px;
-                    margin-top: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: end;
-                    p {
-                        width: 100%;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                    }
-                    span {
-                        display: flex;
-                        width: 50%;
-                        justify-content: end;
                     }
                 }
                 .message {
@@ -217,7 +210,7 @@
                 }
             }
             .footer {
-                width: 100%;
+                
                 color: black;
             }
         }

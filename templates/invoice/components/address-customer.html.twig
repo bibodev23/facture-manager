@@ -1,0 +1,7 @@
+		<div class="customer">
+			<span>Destinataire</span>
+			<p>{{ invoice.customer.name|default('Société cliente') }}</p>
+			<p>{{ invoice.customer.address1|default('1 boulevard de la liberté') }}</p>
+			<p>{{ invoice.customer.postalCode|default('75001') }}
+				{{ invoice.customer.city|default('Paris') }}</p>
+		</div>

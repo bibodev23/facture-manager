@@ -572,6 +572,48 @@
 .page-content.page-invoice section .invoice-page.d-none {
   display: none;
 }
+.page-content.page-invoice section .invoice-page .deliveries-total {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.page-content.page-invoice section .invoice-page .deliveries {
+  width: 100%;
+}
+.page-content.page-invoice section .invoice-page .deliveries table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.page-content.page-invoice section .invoice-page .deliveries table th,
+.page-content.page-invoice section .invoice-page .deliveries table td {
+  padding: 12px 0;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  width: 15%;
+}
+.page-content.page-invoice section .invoice-page .deliveries table th {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.page-content.page-invoice section .invoice-page .deliveries table thead th:nth-child(1) {
+  text-align: left;
+}
+.page-content.page-invoice section .invoice-page .deliveries table thead th:nth-child(3) {
+  text-align: end;
+}
+.page-content.page-invoice section .invoice-page .deliveries table .description {
+  width: 60%;
+  text-align: center;
+}
+.page-content.page-invoice section .invoice-page .deliveries table tbody td.description {
+  text-align: center;
+}
+.page-content.page-invoice section .invoice-page .deliveries table .amount {
+  text-align: end;
+}
 .page-content.page-invoice section .invoice-page .message {
   margin-top: 40px;
 }
@@ -601,6 +643,7 @@
 }
 .page-content.page-invoice section .invoice-page .footer {
   position: absolute;
+  width: 100%;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -616,8 +659,7 @@
 .page-content.page-invoice section .theme1 div {
   width: 100%;
 }
-.page-content.page-invoice section .theme1 .header,
-.page-content.page-invoice section .theme1 .footer {
+.page-content.page-invoice section .theme1 .header {
   position: absolute;
   left: 0;
   height: 40px;
@@ -661,42 +703,6 @@
   justify-content: end;
   align-items: end;
 }
-.page-content.page-invoice section .theme1 .deliveries-total {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.page-content.page-invoice section .theme1 .deliveries table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-.page-content.page-invoice section .theme1 .deliveries table th,
-.page-content.page-invoice section .theme1 .deliveries table td {
-  padding: 12px 0;
-  text-align: left;
-  border-bottom: 2px solid #ddd;
-  width: 15%;
-}
-.page-content.page-invoice section .theme1 .deliveries table th {
-  color: white;
-  font-weight: bold;
-  text-align: center;
-}
-.page-content.page-invoice section .theme1 .deliveries table thead th.amount {
-  text-align: center;
-}
-.page-content.page-invoice section .theme1 .deliveries table .description {
-  width: 60%;
-  text-align: center;
-}
-.page-content.page-invoice section .theme1 .deliveries table tbody td.description {
-  text-align: left;
-}
-.page-content.page-invoice section .theme1 .deliveries table .amount {
-  text-align: end;
-}
 .page-content.page-invoice section .theme1 .notes {
   border: 2px solid rgb(255, 0, 25);
 }
@@ -721,41 +727,32 @@
   display: flex;
   align-items: center;
 }
+.page-content.page-invoice section .theme2 .logo img {
+  width: 200px;
+  height: auto;
+}
 .page-content.page-invoice section .theme2 .deliveries-total {
   display: flex;
   flex-direction: column;
   align-items: end;
 }
+.page-content.page-invoice section .theme2 .deliveries-total .deliveries {
+  width: 100%;
+}
 .page-content.page-invoice section .theme2 .deliveries-total table {
   font-size: 12px;
   margin-bottom: 0;
 }
+.page-content.page-invoice section .theme2 .deliveries-total table th {
+  color: black;
+}
 .page-content.page-invoice section .theme2 .deliveries-total table td {
   padding: 4px;
-}
-.page-content.page-invoice section .theme2 .deliveries-total .total {
-  width: 200px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-}
-.page-content.page-invoice section .theme2 .deliveries-total .total p {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.page-content.page-invoice section .theme2 .deliveries-total .total span {
-  display: flex;
-  width: 50%;
-  justify-content: end;
 }
 .page-content.page-invoice section .theme2 .deliveries-total .message {
   margin-top: 20px;
 }
 .page-content.page-invoice section .theme2 .footer {
-  width: 100%;
   color: black;
 }
 .page-content.page-invoice section .invoice-actions {

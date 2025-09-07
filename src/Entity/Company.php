@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
+#[Vich\Uploadable]
 class Company
 {
     #[ORM\Id]
@@ -106,6 +107,9 @@ class Company
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $rcs = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
@@ -466,9 +470,9 @@ class Company
     public function setLogoFile(?File $logoFile): void
     {
         $this->logoFile = $logoFile;
-        // if ($logoFile) {
-        //     $this->updatedAt = new \DateTime('now');
-        // }
+        if ($logoFile !== null) {
+            $this->updatedAt = new \DateTimeImmutable(); // déclenche Vich
+        }
     }
 
     public function getThemeSelection(): ?ThemeSelection
@@ -515,6 +519,18 @@ class Company
     public function setRcs(?string $rcs): static
     {
         $this->rcs = $rcs;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

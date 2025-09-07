@@ -1,0 +1,37 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Facture{% endblock %}
+
+{% block stylesheets %}
+    <style>
+    .line-top, .line-bottom, table thead {
+        background: {{ invoice.company.invoicePrimaryColor  }};
+    }
+    .invoice-page {
+        color: {{ invoice.company.invoicePrimaryColor  }};
+    }
+    </style>
+
+{% endblock %}
+
+{% block page_title %}
+   Facture n°{{ invoice.number }} - {{ invoice.customer.name }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="page-content page-invoice">
+
+    <section>
+        {{ themeDefault ? include('@invoice/themes/theme-default.html.twig') : include('@invoice/themes/theme-logo.html.twig') }}
+         <div class="invoice-actions">
+        <p class="invoice-number">Facture n° {{ invoice.number }}</p>
+        <p class="current-status">
+        Statut : {{ invoice.status.label }}
+        </p>
+            <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="btn green">Modifier</a>
+            {{ include('invoice/forms/_delete_form.html.twig') }}
+        </div>
+    </section>
+    </div>
+{% endblock %}

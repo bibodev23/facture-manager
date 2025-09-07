@@ -20,7 +20,7 @@
 		}
 		.invoice-page.theme1 {
 			color: {{company.invoiceTextColor}};
-			.header, .footer{
+			.header, .footer, table thead th{
 				background: {{company.invoicePrimaryColor}}
 			}
 		}
@@ -42,8 +42,8 @@
 			{{ include('company/_form_theme.html.twig', {'button_label': 'Appliquer'}) }}
 		</section>
 		<section class="invoice-preview">
-			{{ include('invoice/_theme_default.html.twig') }}
-			{{ include('invoice/_theme_logo.html.twig') }}
+			{{ include('@invoice/themes/theme-default.html.twig') }}
+			{{ include('@invoice/themes/theme-logo.html.twig') }}
 		</section>
 	</div>
 {% endblock %}

@@ -46,6 +46,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'roles' => $this->roles,
+            'pwd_fingerprint' => $this->password ? hash('crc32c', $this->password) : null,
+        ];
+    }
+    
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'] ?? null;
+        $this->email = $data['email'] ?? null;
+        $this->roles = $data['roles'] ?? [];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,16 +127,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
-     */
-    public function __serialize(): array
-    {
-        $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
-
-        return $data;
-    }
 
     #[\Deprecated]
     public function eraseCredentials(): void

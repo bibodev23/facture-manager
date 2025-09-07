@@ -8,6 +8,7 @@ use App\Enum\ThemeSelection;
 use App\Form\CompanyInvoiceThemeType;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
+use App\Repository\InvoiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,11 +102,13 @@ final class CompanyController extends AbstractController
     }
 
     #[Route('/{id}/theme', name: 'app_company_theme', methods: ['GET', 'POST'])]
-    public function editTheme(Request $request, Company $company, EntityManagerInterface $entityManager): Response
+    public function editTheme(Request $request, Company $company, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response
     {
         /** @var \App\Entity\User */
         $user = $this->getUser();
         $company = $user->getCompany();
+        $invoices = $company->getInvoices();
+        $firstInvoice = $invoices[0];
         $themeDefault = true;
         if ($company->getThemeSelection() === ThemeSelection::AlternativeTheme) {
             $themeDefault = false;
@@ -124,6 +127,7 @@ final class CompanyController extends AbstractController
         return $this->render('company/edit_theme.html.twig', [
             'company' => $company,
             'formTheme' => $formTheme->createView(),
+            'invoice' => $firstInvoice,
             'themeDefault' => $themeDefault
         ]);
     }

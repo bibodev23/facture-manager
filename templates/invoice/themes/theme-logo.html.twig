@@ -1,0 +1,29 @@
+<div class="invoice-page theme2 {{ themeDefault ? 'd-none' : '' }}" data-theme-target="theme2">
+	<div class="header">
+		{{ include('@invoice/components/address-company.html.twig') }}
+		<div class="logo">
+			<img src="{{ vich_uploader_asset(invoice.company, 'logoFile') }}" alt="Logo" srcset="">
+		</div>
+	</div>
+	<div class="address">
+		<div class="date">
+			<p>Facture : {{ invoice.number|default('001') }}</p>
+			<p>Date de facturation : {{ invoice.date ? invoice.date|date('d/m/Y') : '' }}</p>
+			<p>Date d'échéance : {{ invoice.dueDate ? invoice.dueDate|date('d/m/Y') : '' }}</p>
+			<br>
+			<p>Mode de paiement : Virement</p>
+			<p>Iban : {{ company.iban|default('FR00 XXXX XXXX...') }}</p>
+		</div>
+		 {{ include('@invoice/components/address-customer.html.twig') }}
+	</div>
+
+	<div class="deliveries-total ">
+		<div class="deliveries border">
+			{{ include('@invoice/components/deliveries-table.html.twig') }}
+		</div>
+		{{ include('@invoice/components/total.html.twig') }}
+	</div>
+
+
+	{{ include('@invoice/components/footer.html.twig') }}
+</div>

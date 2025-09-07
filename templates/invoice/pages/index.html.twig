@@ -10,7 +10,7 @@
 <div class="page-content">
 <a href="{{ path('app_invoice_new') }}" class="btn green">Nouvelle facture</a>
 
- {% import 'invoice/_table.html.twig' as invoices %}
+ {% import 'invoice/components/table.html.twig' as invoices %}
 
  {{ invoices.table('Toutes les factures', invoices, '') }}
  {{ invoices.table('Factures en attente d\'envoi', invoicesPendingSending, 'orange') }}

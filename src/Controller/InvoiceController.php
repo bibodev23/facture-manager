@@ -6,6 +6,7 @@ use App\Entity\Customer;
 use App\Entity\Invoice;
 use App\Entity\User;
 use App\Enum\InvoiceStatus;
+use App\Enum\ThemeSelection;
 use App\Form\CustomerChoiceType;
 use App\Form\InvoiceType;
 use App\Repository\CustomerRepository;
@@ -41,7 +42,7 @@ final class InvoiceController extends AbstractController
             $this->addFlash('info', 'Vous devez d\'abord ajouter une livraison avant de créer une facture.');
             return $this->redirectToRoute('app_delivery_new');
         }
-        return $this->render('invoice/index.html.twig', [
+        return $this->render('invoice/pages/index.html.twig', [
             'invoices' => $invoices,
             'invoicesOverdue' => $invoicesOverdue,
             'invoicesPendingSending' => $invoicesPendingSending,
@@ -72,7 +73,7 @@ final class InvoiceController extends AbstractController
                 'id' => $customer->getId(),
             ]);
         }
-        return $this->render('invoice/new.html.twig', [
+        return $this->render('invoice/pages/new.html.twig', [
             'form' => $form,
             'customers' => $customers
         ]);
@@ -100,7 +101,7 @@ final class InvoiceController extends AbstractController
             
             if ($form->get('deliveries')->getData()->isEmpty()) {
                 $this->addFlash('error', 'Veuillez choisir au moins une livraison');
-                return $this->render('invoice/new_from_customer.html.twig', [
+                return $this->render('invoice/pages/new_from_customer.html.twig', [
                     'invoice' => $invoice,
                     'form' => $form,
                     'company' => $company,
@@ -117,7 +118,7 @@ final class InvoiceController extends AbstractController
             ]);
         }
 
-        return $this->render('invoice/new_from_customer.html.twig', [
+        return $this->render('invoice/pages/new_from_customer.html.twig', [
             'invoice' => $invoice,
             'form' => $form,
             'company' => $company,
@@ -128,8 +129,15 @@ final class InvoiceController extends AbstractController
     #[Route('/{id}', name: 'app_invoice_show', methods: ['GET'])]
     public function show(Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('invoice/show.html.twig', [
+        $company = $invoice->getCompany();
+        $themeDefault = true;
+        if ($company->getThemeSelection() === ThemeSelection::AlternativeTheme) {
+            $themeDefault = false;
+        }
+        return $this->render('invoice/pages/show.html.twig', [
             'invoice' => $invoice,
+            'company' => $company,
+            'themeDefault' => $themeDefault
         ]);
     }
 
@@ -159,7 +167,7 @@ final class InvoiceController extends AbstractController
             ]);
         }
 
-        return $this->render('invoice/edit.html.twig', [
+        return $this->render('invoice/pages/edit.html.twig', [
             'invoice' => $invoice,
             'form' => $form,
             'customer' => $customer,
@@ -180,7 +188,7 @@ final class InvoiceController extends AbstractController
     #[Route('/pdf/{id}', name: 'app_invoice_show_pdf', methods: ['GET'])]
     public function showPdf(Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('invoice/pdf.html.twig', [
+        return $this->render('invoice/export/pdf.html.twig', [
             'invoice' => $invoice,
         ]);
     }
@@ -188,7 +196,7 @@ final class InvoiceController extends AbstractController
     #[Route('/{id}/download', name: 'app_invoice_download', methods: ['GET'])]
     public function download(Invoice $invoice, PdfGenerator $pdfGenerator): Response
     {
-        $htmlContent = $this->renderView('invoice/pdf.html.twig', [
+        $htmlContent = $this->renderView('invoice/export/pdf.html.twig', [
             'invoice' => $invoice,
         ]);
 
@@ -203,18 +211,18 @@ final class InvoiceController extends AbstractController
     #[Route('invoice/{id}/mail', name: 'app_invoice_mail', methods: ['GET'])]
     public function sendInvoice(Invoice $invoice, MailerInterface $mailer, Request $request, PdfGenerator $pdfGenerator, EmailCreator $emailCreator): Response
     {
-        $htmlContent = $this->renderView('invoice/email.html.twig', [
+        $htmlContent = $this->renderView('invoice/export/email.html.twig', [
             'invoice' => $invoice,
         ]);
 
-        $invoicePdfContent = $this->renderView('invoice/pdf.html.twig', [
+        $invoicePdfContent = $this->renderView('invoice/export/pdf.html.twig', [
             'invoice' => $invoice,
         ]);
 
         $pdfContent = $pdfGenerator->generatePdf($invoicePdfContent);
         $emailCreator = $emailCreator->send($invoice, $mailer, $pdfContent, $htmlContent);
         $this->addFlash('success', 'La facture a bien été envoyée par email à ' . $invoice->getCustomer()->getEmail() . ' !');
-        return $this->render('invoice/show.html.twig', [
+        return $this->render('invoice/pages/show.html.twig', [
             'invoice' => $invoice,
         ]);
     }
