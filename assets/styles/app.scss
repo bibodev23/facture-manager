@@ -19,15 +19,11 @@
 }
 $color-primary: #021f3b;
 $color-vert: #00bf63;
+$color-green-btn: #209978;
 $color-blue: #0362b4;
 $color-red: rgb(236, 101, 101);
 $gradient: linear-gradient(180deg, $color-primary, $color-vert);
 
-@import "home.scss";
-@import "login.scss";
-@import "dashboard.scss";
-@import "invoice.scss";
-@import "invoice_preview.scss";
 
 
 .container {
@@ -39,180 +35,7 @@ svg {
     fill: currentColor;
 }
 
-.register-login {
-    width: 100%;
-    display: flex;
-    height: 100vh;
-    margin: 0 auto;
-    overflow: hidden;
-    font-family: "Poppins", sans-serif;
-    h1 {
-        font-size: 32px;
-        margin-bottom: 20px;
-    }
-    .background {
-        position: relative;
-        width: 50%;
-        background: $gradient;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-left: 25%;
-        a.logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            img {
-                width: 300px;
-                height: auto;
-            }
-        }
-        ul {
-            width: fit-content;
-            transform: translateX(-50%);
-            h1,
-            li {
-                width: fit-content;
-                text-align: left;
-            }
-            li {
-                font-size: 20px;
-                font-weight: bold;
-            }
-            svg {
-                width: 30px;
-                margin-right: 10px;
-                color: white;
-            }
-        }
-    }
-    .form-login,
-    .form-register {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        form {
-            width: 100%;
-            padding: 40px;
-        }
-        h1 {
-            font-size: 32px;
-            letter-spacing: -1px;
-            font-weight: 600;
-        }
-        h2 {
-            margin-bottom: 20px;
-        }
-        section {
-            margin-top: 20px;
-            .row {
-                flex-direction: row;
-                gap: 5px;
-                width: 100%;
-                div {
-                    width: 100%;
-                }
-            }
-        }
-        div {
-            display: flex;
-            flex-direction: column;
-        }
-        .actions {
-            button {
-                padding: 12px;
-                background-color: $color-blue;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: background-color 0.3s ease;
-                margin-bottom: 20px;
-                &:hover {
-                    background-color: darken($color: $color-blue, $amount: 10%);
-                }
-            }
-            a {
-                text-align: center;
-                &.btn {
-                    padding: 12px;
-                    background-color: $color-vert;
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-weight: 600;
-                    transition: background-color 0.3s ease;
-                    &:hover {
-                        background-color: $color-vert;
-                    }
-                }
-            }
-        }
-        .checkbox {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 0;
-            margin-bottom: 1rem;
-            margin-top: -0.5rem;
-            input {
-                margin-left: 0.5rem;
-                width: fit-content;
-                padding: 0;
-                margin-bottom: 0;
-            }
-            label {
-                font-weight: 400;
-                font-size: 14px;
-                margin-bottom: 0;
-            }
-        }
-        hr {
-            width: 100%;
-            margin: 40px 0;
-            border: none;
-            border-top: 1px solid darken($color-vert, 10%);
-        }
-        p {
-            margin-top: 1rem;
-            a {
-                color: $color-primary;
-                font-weight: 600;
-                transition: color 0.2s ease;
-                border: 1px solid darken($color: $color-vert, $amount: 10%);
-                color: darken($color: $color-vert, $amount: 10%);
-                border-radius: 0.25rem;
-                display: inline-block;
-                padding: 0.5rem 1rem;
-                &:hover {
-                    color: darken($color-primary, 10%);
-                }
-            }
-        }
-        .controller-action {
-            button {
-                max-width: 100%;
-                margin: 0 40px;
-                padding: 12px;
-                background-color: $color-blue;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: background-color 0.3s ease;
-                &:hover {
-                    background-color: darken($color-blue, 5%);
-                }
-            }
-        }
-    }
-}
+
 
 .pop-up {
     position: fixed;
@@ -271,6 +94,8 @@ svg {
     display: none;
 }
 
+.flex-row
+
 .d-flex {
     display: flex;
     &.flex-column {
@@ -284,6 +109,9 @@ svg {
     }
     &.align-center {
         align-items: center;
+    }
+    &.space-between {
+        justify-content: space-between;
     }
     &.gap-1 {
         gap: 10px;
@@ -423,9 +251,9 @@ select, select::picker(select) {
         }
     }
     &.green {
-        background-color: $color-vert;
+        background-color: $color-green-btn;
         &:hover {
-            background-color: darken($color-vert, 10%);
+            background-color: darken($color-green-btn, 10%);
         }
     }
     &.locked {
@@ -472,3 +300,9 @@ textarea {
     font-size: 16px;
     resize: none;
 }
+
+@import "home.scss";
+@import "login.scss";
+@import "dashboard.scss";
+@import "invoice.scss";
+@import "invoice_preview.scss";

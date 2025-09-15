@@ -1,16 +1,5 @@
 {{ form_start(formTheme) }}
 <h2>Personnalisez votre facture</h2>
-<div class="input-group">
-	{{ form_label(formTheme.themeSelection, 'Choisissez votre thème') }}
-	<div class="list-cards">
-		{% for child in formTheme.themeSelection %}
-			<div class="input-card {{ child.vars.value }}" data-action="click->theme#switch{{ child.vars.value}}">
-				{{ form_widget(child) }}
-				{{ form_label(child, null, {'attr': {'data-action':'click->theme#switchTheme'}}) }}
-			</div>
-		{% endfor %}
-	</div>
-</div>
 	<div class="input-group color">
 		{{ form_label(formTheme.invoicePrimaryColor, 'Couleur primaire :') }}
 		<div class="input-pencil">
@@ -23,12 +12,15 @@
 			{{ form_widget(formTheme.invoiceTextColor) }}
 		</div>
 	</div>
-<div class="input-group input-logo {{ themeDefault ? 'd-none' : '' }}" data-theme-target="inputLogo">
-	{{ form_label(formTheme.logoFile, 'Importez votre logo') }}
-	<div class="input-pencil">
-		{{ form_widget(formTheme.logoFile) }}
-	</div>
-	<span>{{ ux_icon('bi:info-circle') }} Optimisez votre affichage en utilisant un logo transparent via l'outil gratuit <a href="https://www.remove.bg/" target="_blank">Remove Background</a></span>
-</div>
+		<div class="input-group input-logo" data-theme-target="inputLogo" style="display: {{ company.logo ? 'none' : 'block' }}">
+			{{ form_label(formTheme.logoFile, 'Importez votre logo') }}
+			<div class="input-pencil">
+				{{ form_widget(formTheme.logoFile) }}
+			</div>
+			<span>{{ ux_icon('bi:info-circle') }} Optimisez votre affichage en utilisant un logo transparent via l'outil gratuit <a href="https://www.remove.bg/" target="_blank">Remove Background</a></span>
+		</div>
+
+		<a href="{{ path('app_company_delete_logo', {'id': company.id}) }}" class="remove-logo btn red" style="display: {{ company.logo ? 'block' : 'none' }}; width: 100%;">Supprimer le logo</a>
+
 <button class="btn">{{ button_label|default('Appliquer le design') }}</button>
 {{ form_end(formTheme) }}

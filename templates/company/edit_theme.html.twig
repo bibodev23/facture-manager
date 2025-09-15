@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html.twig' %}
+
 {% block stylesheets %}
 	<style>
 		.page-preview {
@@ -13,25 +14,12 @@
 				border: 1px solid rgba(0, 0, 0, 1);
 			}
 		
-		table thead,
-		.dashboard-container .page .page-content section.invoice-preview {
-			max-width: 600px;
-			padding: 0;
-		}
-		.invoice-page.theme1 {
-			color: {{company.invoiceTextColor}};
-			.header, .footer, table thead th{
-				background: {{company.invoicePrimaryColor}}
+			img {
+				width: 200px;
+				height: auto;
 			}
-		}
-		.invoice-page.theme2 {
-			.border {
-				border: 1px solid {{company.invoicePrimaryColor}}
-			}
-		}
 	</style>
 {% endblock %}
-
 {% block title %}Paramétrages du design
 {% endblock %}
 {% block page_title %}Apparence de la facture
@@ -42,8 +30,7 @@
 			{{ include('company/_form_theme.html.twig', {'button_label': 'Appliquer'}) }}
 		</section>
 		<section class="invoice-preview">
-			{{ include('@invoice/themes/theme-default.html.twig') }}
-			{{ include('@invoice/themes/theme-logo.html.twig') }}
+			{{ include('@invoice/components/invoice.html.twig') }}
 		</section>
 	</div>
 {% endblock %}

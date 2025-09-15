@@ -17,13 +17,6 @@ class CompanyInvoiceThemeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('themeSelection', EnumType::class, [
-                'class' => ThemeSelection::class,
-                'choice_label' => fn(ThemeSelection $c) => $c->getLabel(),
-                'multiple' => false,
-                'expanded' => true,
-                'placeholder' => false,
-            ])
             ->add('invoicePrimaryColor', ColorType::class, [
                 'label' => 'Couleur primaire',
                 'required' => false

@@ -33,6 +33,7 @@ class CompanyType extends AbstractType
             ])
             ->add('shareCapital', null, [
                 'label' => 'Capital social',
+                'attr' => ['placeholder' => 'Capital social']
             ])
             ->add('siret', null, [
                 'label' => 'SIRET',

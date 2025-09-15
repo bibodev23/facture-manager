@@ -1,14 +1,6 @@
-<div class="total border">
-	<p>Total HT :
-		<span>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</span>
-	</p>
-	<p>TVA :
-		<span>{{ invoice.totalTVA|number_format(2, ',', ' ') }} €</span>
-	</p>
-	<p class="total-ttc">Total TTC :
-		<span>{{ invoice.totalTTC|number_format(2, ',', ' ') }} €</span>
-	</p>
+<div class="total">
+<p>TOTAL HT : <span>{{ invoice.totalHT|number_format(2, ',', ' ') }}€</span></p>
+<p>TVA : <span>{{ invoice.totalTVA|number_format(2, ',', ' ') }}€</span></p>
+<p>TOTAL TTC : <span>{{ invoice.totalTTC|number_format(2, ',', ' ') }}€</span></p>
 </div>
-<div class="message">
-	<p>AUCUN ESCOMPTE NE SERA DÉCOMPTÉ EN CAS DE PAIEMENT ANTICIPÉ. TOUTE FACTURE NON RÉGLÉE À DATE D'ÉCHÉANCE PORTERA INTÉRÊT DE RETARD ÉGAL À 3 FOIS LE TAUX D'INTÉRÊT LÉGAL ET D'UNE INDEMNITÉ FORFAITAIRE DE 40 EUROS POUR FRAIS DE RECOUVREMENT DES CRÉANCES</p>
-</div>
+

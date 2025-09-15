@@ -1,7 +1,4 @@
-.list-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+
     .input-card {
         input {
             display: none;
@@ -27,22 +24,7 @@
                 border: 4px solid $color-blue;
             }
         }
-        // a {
-        //     background-color: transparent;
-        //     position: absolute;
-        //     top: 0;
-        //     right: 0;
-        //     width: 100%;
-        //     height: 100%;
-        //     z-index: 1;
-        //     border: 2px solid rgb(205, 204, 204);
-        //     border-radius: 10px;
-        //     &:focus {
-        //         border: 2px solid green;
-        //     }
-        // }
     }
-}
 
 .dashboard-container .page .page-content form .input-group.d-none {
     display: none;
@@ -50,8 +32,7 @@
 .dashboard-container {
     .page {
         .page-preview {
-            padding: 40px;
-            gap: 80px;
+            gap: 40px;
             .form-theme {
                 align-items: center;
                 max-width: 500px;
@@ -109,14 +90,6 @@
                         margin: 0 auto;
                     }
                 }
-            }
-            .invoice-preview {
-                overflow: hidden;
-                border-radius: 10px;
-                box-shadow:
-                    20px 20px 60px #bebebe,
-                    -20px -20px 60px #ffffff;
-                background: white;
             }
         }
     }

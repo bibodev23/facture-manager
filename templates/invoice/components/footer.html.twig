@@ -1,10 +1,10 @@
-	<div class="footer">
+	<div class="footer" style="text-align: center; font-size: 12px;">
 		{{ company.name|upper }}
 		{{company.legalForm.getLabel()|default('????')}}
 		au capital de
-		{{company.shareCapital|default('????')}}
+		{{company.shareCapital|default('????')|number_format(2, ',', ' ')}} €
 		- RCS
-		{{company.rcs|default('????')}}
+		{{company.rcs|default('????')|upper}}
 		<br>
 		SIRET :{{company.siret}}
 		- TVA :

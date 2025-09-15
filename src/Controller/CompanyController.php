@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Company;
 use App\Enum\LegalForm;
-use App\Enum\ThemeSelection;
 use App\Form\CompanyInvoiceThemeType;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
@@ -102,7 +101,7 @@ final class CompanyController extends AbstractController
     }
 
     #[Route('/{id}/theme', name: 'app_company_theme', methods: ['GET', 'POST'])]
-    public function editTheme(Request $request, Company $company, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response
+    public function editTheme(Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {
         /** @var \App\Entity\User */
         $user = $this->getUser();
@@ -110,7 +109,7 @@ final class CompanyController extends AbstractController
         $invoices = $company->getInvoices();
         $firstInvoice = $invoices[0];
         $themeDefault = true;
-        if ($company->getThemeSelection() === ThemeSelection::AlternativeTheme) {
+        if ($company->getLogo()) {
             $themeDefault = false;
         }
         $formTheme = $this->createForm(CompanyInvoiceThemeType::class, $company);
@@ -130,6 +129,15 @@ final class CompanyController extends AbstractController
             'invoice' => $firstInvoice,
             'themeDefault' => $themeDefault
         ]);
+    }
+
+    #[Route('/{id}/delete-logo', name: 'app_company_delete_logo', methods: ['POST', 'GET'])]
+    public function deleteLogo(Request $request, Company $company, EntityManagerInterface $entityManager): Response
+    {
+        $company->deleteLogo();
+        $entityManager->persist($company);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_company_theme', ['id' => $company->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_company_delete', methods: ['POST'])]

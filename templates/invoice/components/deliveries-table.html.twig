@@ -1,18 +1,17 @@
-<table class="table">
-	<thead>
+<table>
+	<thead style="color:{{ company.invoiceTextColor}}; background-color:{{ company.invoicePrimaryColor}};">
 		<tr>
 			<th>Date</th>
 			<th class="description">Description</th>
 			<th class="amount">Montant</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody >
 		{% for delivery in invoice.deliveries %}
-			<tr>
+			<tr style="vertical-align:center">
 				<td>{{ delivery.date ? delivery.date|date('d/m/Y') : '' }}</td>
 				<td class="description">{{ delivery.description }}</td>
-				<td class="amount">{{ delivery.amount|number_format(2, ',', ' ') }}
-					€</td>
+				<td class="amount"> <p>{{ delivery.amount|number_format(2, ',', ' ') }}€</p></td>
 			</tr>
 		{% endfor %}
 	</tbody>

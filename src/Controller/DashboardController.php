@@ -35,7 +35,7 @@ final class DashboardController extends AbstractController
             'datasets' => [
                 [
                     'label' => 'Chiffre d\'affaires par mois',
-                    'data' => [45, 59, 80, 81, 56, 55, 70],
+                    'data' => [45, 59, 80, 81, 56, 55, 70, 75, 90, 100, 110, 120],
                 ],
             ]
         ]);

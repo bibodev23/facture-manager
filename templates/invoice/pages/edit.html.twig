@@ -10,11 +10,9 @@
 {% block body %}
     <div class="page-content">
         <section>
-            {{ include('@invoice/form/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-            {{ include('@invoice/form/_delete_form.html.twig') }}
+            {{ include('@invoice/forms/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            {{ include('@invoice/forms/_delete_form.html.twig') }}
         </section>
     </div>
-    
-
     
 {% endblock %}

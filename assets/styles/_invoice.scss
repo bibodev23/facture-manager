@@ -1,224 +1,144 @@
 .page-content.page-invoice {
-    section {
         display: flex;
-        justify-content: center;
-        gap: 40px;
-        .invoice-page {
-            width: 600px;
-            height: 846px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.139);
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            padding: 30px;
-            padding-top: 80px;
-            font-size: 14px;
-            position: relative;
-            overflow: hidden;
-            &.d-none {
-                display: none;
-            }
-            .deliveries-total {
-                min-height: 300px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            .deliveries {
-                width: 100%;
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 20px;
-                    th,
-                    td {
-                        padding: 12px 0;
-                        text-align: left;
-                        border-bottom: 2px solid #ddd;
-                        width: 15%;
-                    }
-                    th {
-                        color: white;
-                        font-weight: bold;
-                        text-align: center;
-                    }
-                    thead {
-                        th {
-                            &:nth-child(1) {
-                                text-align: left;
-                            }
-                            &:nth-child(3) {
-                                text-align: end;
-                            }
-                        }
-                    }
-                    .description {
-                        width: 60%;
-                        text-align: center;
-                    }
+        justify-content: space-around;
 
-                    tbody {
-                        td.description {
-                            text-align: center;
-                        }
-                    }
-                    .amount {
-                        text-align: end;
-                    }
-                }
-            }
-            .message {
-                margin-top: 40px;
-                p {
-                    font-size: 10px;
-                    text-align: center;
-                }
-            }
-            .total {
-                display: flex;
-                align-items: end;
-                flex-direction: column;
-                font-weight: 600;
-                p {
-                    display: flex;
-                    span {
-                        display: flex;
-                        justify-content: end;
-                        width: 100px;
-                    }
-                    &.total-ttc {
-                        font-weight: bold;
-                        span {
-                            font-weight: bold;
-                        }
-                    }
-                }
-            }
-            .footer {
-                position: absolute;
-                width: 100%;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1;
-                color: white;
-                display: flex;
-                justify-content: center;
-                height: 60px;
-                align-items: center;
-                font-size: 12px;
-                text-align: center;
-            }
-        }
-        .theme1 {
-            div {
-                width: 100%;
-            }
-            .header {
-                position: absolute;
-                left: 0;
-                height: 40px;
-                width: 100%;
-            }
-            .header {
-                top: 0;
-                height: 100px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 30px;
-                color: white;
-            }
-            .header,
-            .address {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .header {
-                h1,
-                p {
-                    font-size: 38px;
-                    text-transform: uppercase;
-                    font-weight: bold;
-                    letter-spacing: 3px;
-                }
-            }
-            .address {
-                margin-top: 60px;
-                span {
-                    font-weight: 700;
-                    font-size: 18px;
-                }
-                .company {
-                    width: 55%;
-                }
-                .customer {
-                    width: 45%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: end;
-                    align-items: end;
-                }
-            }
-            .notes {
-                border: 2px solid rgb(255, 0, 25);
-            }
-        }
-        .theme2 {
-            gap: 20px;
-            padding-top: 20px;
-            padding: 20px;
-            .border {
-                width: fit-content;
-                padding: 20px 10px;
-                border-radius: 20px;
-            }
-            .header,
-            .address {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .logo {
-                display: flex;
-                align-items: center;
-                img {
-                    width: 200px;
-                    height: auto;
-                }
-            }
-            .deliveries-total {
-                display: flex;
-                flex-direction: column;
-                align-items: end;
-                .deliveries {
-                    width: 100%;
-                }
-                table {
-                    font-size: 12px;
-                    margin-bottom: 0;
-                    th {
-                        color: black;
-                    }
-                    td {
-                        padding: 4px;
-                    }
-                }
-                .message {
-                    margin-top: 20px;
-                }
-            }
-            .footer {
-                
-                color: black;
-            }
-        }
         .invoice-actions {
             // border: 2px solid rgba(0, 0, 0, 0.384);
             width: 320px;
             max-width: 400px;
+            height: fit-content;
             padding: 20px;
+            box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+            border-radius: 50px;
+            background: rgb(236, 236, 236);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            
+            a {
+                position: relative;
+                height: 40px;
+                text-align: center;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                transition: all 0.3s ease;
+                font-size: 14px;
+                span.icon {
+                    position: absolute;
+                    right: 0;
+                    background-color: darken($color: $color-green-btn, $amount: 10%);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 30%;
+                    height: 100%;
+                    transition: all 0.5s ease;
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+                span.text {
+                    position: relative;
+                    left: 0;
+                    width: 70%;
+                    opacity: 1;
+                }
+                &:hover {
+                    padding-left: 0;
+                    transition: all 0.3s ease;
+                    span.icon {
+                        width: 100%;
+                        transition: all 0.3s ease;
+                    }
+                    span.text {
+                        width: 0;
+                        opacity: 0;
+                        transition: all 0.3s ease;
+                    }
+                }
+            }
+            form, p {
+                width: fit-content;
+                text-align: center;
+            }
         }
-    }
+
+        .invoice {
+            width: 21cm;
+            height: 29.7cm;
+            max-height: 29.7cm;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px;
+            gap: 40px;
+            img {
+                width: 180px;
+                height: auto;
+            }
+            .header {
+                padding: 0 20px;
+                height: 200px;
+                h1 {
+                    font-size: 42px;
+                    margin: 0;
+                    text-transform: uppercase;
+                }
+                p {
+                    font-size: 42px;
+                    margin: 0;
+                }
+            }
+            .header, .address {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .address {
+                span {
+                    display: block;
+                    line-height: 1.5;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                .customer {
+                    text-align: right;
+                }
+            }
+            .deliveries {
+                height: 300px;
+            }
+            .total {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                align-items: flex-end;
+                p {
+                    display: flex;
+                    span {
+                    width: 120px;
+                    text-align: right;
+                    margin: 0;
+                }
+                }
+
+            }
+            .message {
+                font-size: 12px;
+                text-align: center;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 20px;
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+
 }

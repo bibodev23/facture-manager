@@ -1,9 +1,9 @@
 {{ form_start(form) }}
-    <div>
-        <h2>Coordonnées</h2>
-        <div class="two-columns">
-            <div class="input-group">
-                {{ form_label(form.name, 'Nom de l\'entreprise *') }}
+<div>
+	<h2>Coordonnées</h2>
+	<div class="two-columns">
+		<div class="input-group">
+			{{ form_label(form.name, 'Nom de l\'entreprise *') }}
                  <div class="input-pencil">
                     {{ form_widget(form.name) }}
                     {{ ux_icon('bx:building') }}
@@ -70,7 +70,7 @@
         </div>
     </div>
     <div>
-        <h2>Informations juridiques</h2>
+        <h2>Informations pour la facture</h2>
         <div class="two-columns">
              <div class="input-group">
             {{ form_label(form.siren, 'SIREN *') }}
@@ -88,7 +88,7 @@
             </div>
         </div>
        
-       <div class="two-columns">
+    <div class="two-columns">
                 <div class="input-group">
             {{ form_label(form.tvaNumber, 'Numéro de TVA *') }}
             <div class="input-pencil">
@@ -103,7 +103,14 @@
                 {{ ux_icon('bi:pencil') }}
             </div>
         </div>
-       </div>
+    </div>
+        <div class="input-group">
+            {{ form_label(form.shareCapital, 'Capital social *') }}
+            <div class="input-pencil">
+                {{ form_widget(form.shareCapital) }}
+                {{ ux_icon('bi:bank') }}
+            </div>
+        </div>
         <div class="input-group">
             {{ form_label(form.iban, 'IBAN *') }}
             <div class="input-pencil">
@@ -125,4 +132,3 @@
 {{ form_end(form) }}
 <br>
 <strong>* champs obligatoires présents sur la facture</strong>
-

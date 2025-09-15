@@ -23,6 +23,9 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Spatie\Browsershot\Browsershot;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 #[Route('/invoice')]
 final class InvoiceController extends AbstractController
@@ -131,7 +134,7 @@ final class InvoiceController extends AbstractController
     {
         $company = $invoice->getCompany();
         $themeDefault = true;
-        if ($company->getThemeSelection() === ThemeSelection::AlternativeTheme) {
+        if ($company->getLogo()) {
             $themeDefault = false;
         }
         return $this->render('invoice/pages/show.html.twig', [
@@ -188,42 +191,106 @@ final class InvoiceController extends AbstractController
     #[Route('/pdf/{id}', name: 'app_invoice_show_pdf', methods: ['GET'])]
     public function showPdf(Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
+                /** @var \App\Entity\User */
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $themeDefault = true;
+        if ($company->getLogo()) {
+            $themeDefault = false;
+        }
         return $this->render('invoice/export/pdf.html.twig', [
             'invoice' => $invoice,
+            'themeDefault' => $themeDefault,
+            'company' => $company
         ]);
     }
 
     #[Route('/{id}/download', name: 'app_invoice_download', methods: ['GET'])]
-    public function download(Invoice $invoice, PdfGenerator $pdfGenerator): Response
+    public function download(Invoice $invoice, PdfGenerator $pdfGenerator, \Knp\Snappy\Pdf $pdf): Response
     {
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $themeDefault = true;
+        if ($company->getLogo()) {
+            $themeDefault = false;
+        }
         $htmlContent = $this->renderView('invoice/export/pdf.html.twig', [
             'invoice' => $invoice,
+            'themeDefault' => $themeDefault,
+            'company' => $company
         ]);
+        /** DOM PDF */
+        // $pdfContent = $pdfGenerator->generatePdf($htmlContent);
 
-        $pdfContent = $pdfGenerator->generatePdf($htmlContent);
+        // return new Response($pdfContent, 200, [
+        //     'Content-Type' => 'application/pdf',
+        //     'Content-Disposition' => 'attachment; filename="invoice.pdf"',
+        // ]);
 
-        return new Response($pdfContent, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="invoice.pdf"',
-        ]);
+        /** Snappy PDF */
+        // return new PdfResponse(
+        //     $pdf->getOutputFromHtml($htmlContent),
+        //     'invoice.pdf',
+        //     [
+        //         'Content-Type' => 'application/pdf',
+        //         'Content-Disposition' => 'attachment; filename="invoice.pdf"',
+        //     ]
+        // );
+
+       $pdf = Browsershot::html($htmlContent)
+            ->emulateMedia('screen')
+            ->orientation('portrait')
+            ->format('A4')
+            ->showBackground()
+            ->setOption('waintUntil', 'networkidle0')
+            ->timeout(60)
+            ->pdf();
+
+        $filename = sprintf('invoice-%s.pdf', $invoice->getId()); // adapte si tu as un numéro
+
+    return new Response($pdf, 200, [
+        'Content-Type'        => 'application/pdf',
+        'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        'Cache-Control'       => 'no-store',
+    ]);
     }
 
     #[Route('invoice/{id}/mail', name: 'app_invoice_mail', methods: ['GET'])]
     public function sendInvoice(Invoice $invoice, MailerInterface $mailer, Request $request, PdfGenerator $pdfGenerator, EmailCreator $emailCreator): Response
     {
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        $company = $user->getCompany();
+        $themeDefault = true;
+        if ($company->getLogo()) {
+            $themeDefault = false;
+        }
         $htmlContent = $this->renderView('invoice/export/email.html.twig', [
             'invoice' => $invoice,
         ]);
 
         $invoicePdfContent = $this->renderView('invoice/export/pdf.html.twig', [
             'invoice' => $invoice,
+            'company' => $company,
+            'themeDefault' => $themeDefault
         ]);
 
-        $pdfContent = $pdfGenerator->generatePdf($invoicePdfContent);
+        $pdfContent = Browsershot::html($invoicePdfContent)
+            ->emulateMedia('screen')
+            ->orientation('portrait')
+            ->format('A4')
+            ->showBackground()
+            ->setOption('waintUntil', 'networkidle0')
+            ->timeout(60)
+            ->pdf();
         $emailCreator = $emailCreator->send($invoice, $mailer, $pdfContent, $htmlContent);
         $this->addFlash('success', 'La facture a bien été envoyée par email à ' . $invoice->getCustomer()->getEmail() . ' !');
+        $invoice->setStatus(InvoiceStatus::Sent);
         return $this->render('invoice/pages/show.html.twig', [
             'invoice' => $invoice,
+            'company' => $company,
+            'themeDefault' => $themeDefault
         ]);
     }
 }

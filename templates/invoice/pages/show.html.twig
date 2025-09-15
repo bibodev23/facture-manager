@@ -1,37 +1,41 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Facture{% endblock %}
-
-{% block stylesheets %}
-    <style>
-    .line-top, .line-bottom, table thead {
-        background: {{ invoice.company.invoicePrimaryColor  }};
-    }
-    .invoice-page {
-        color: {{ invoice.company.invoicePrimaryColor  }};
-    }
-    </style>
-
+{% block title %}Facture
 {% endblock %}
 
 {% block page_title %}
-   Facture n°{{ invoice.number }} - {{ invoice.customer.name }}
+	Facture n°{{ invoice.number }}
+	-
+	{{ invoice.customer.name }}
 {% endblock %}
 
-
 {% block body %}
-    <div class="page-content page-invoice">
-
-    <section>
-        {{ themeDefault ? include('@invoice/themes/theme-default.html.twig') : include('@invoice/themes/theme-logo.html.twig') }}
-         <div class="invoice-actions">
-        <p class="invoice-number">Facture n° {{ invoice.number }}</p>
-        <p class="current-status">
-        Statut : {{ invoice.status.label }}
-        </p>
-            <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="btn green">Modifier</a>
-            {{ include('invoice/forms/_delete_form.html.twig') }}
-        </div>
-    </section>
-    </div>
+	<div class="page-content page-invoice">
+        {{ include('@invoice/components/invoice.html.twig') }}
+		<div class="invoice-actions">
+			<p class="invoice-number">Facture n°
+				{{ invoice.number }}</p>
+			<p class="current-status">Statut :
+				{{ invoice.status.label }}</p>
+			<a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}" class="btn green">
+				<span class="text">Modifier</span>
+				<span class="icon">{{ ux_icon('mdi:edit') }}</span>
+			</a>
+			<a href="{{ path('app_invoice_show_pdf', {'id': invoice.id}) }}" class="btn green">
+				<span class="text">Afficher</span>
+				<span class="icon">{{ ux_icon('mdi:eye') }}</span>
+			</a>
+			<a href="{{ path('app_invoice_download', {'id': invoice.id}) }}" class="btn green">
+				<span class="text">Télécharger</span>
+				<span class="icon">{{ ux_icon('mdi:download') }}</span>
+			</a>
+			<a href="{{ path('app_invoice_mail', {'id': invoice.id}) }}" class="btn green">
+				<span class="text">Envoyer</span>
+				<span class="icon">{{ ux_icon('mdi:email-send') }}</span>
+			</a>
+			<p>Adresse de destination :
+				<br>{{ invoice.customer.email }}</p>
+			{{ include('invoice/forms/_delete_form.html.twig') }}
+		</div>
+	</div>
 {% endblock %}

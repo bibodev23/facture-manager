@@ -45,7 +45,10 @@ class DeliveryType extends AbstractType
             ->add('amount', null, [
                 'label' => 'Montant HT',
             ])
-            ->add('cmrFile', FileType::class)
+            ->add('cmrFile', FileType::class, [
+                'label' => 'CMR',
+                'required' => false
+            ])
         ;
     }
 

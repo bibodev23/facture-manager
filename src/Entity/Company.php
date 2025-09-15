@@ -96,9 +96,6 @@ class Company
     #[Vich\UploadableField(mapping: 'logos', fileNameProperty: 'logo')]
     private ?File $logoFile = null;
 
-    #[ORM\Column(enumType: ThemeSelection::class, type: 'string' ,nullable: true)]
-    private ?ThemeSelection $themeSelection = null;
-
     #[ORM\Column( enumType: LegalForm::class, type: 'string', nullable: true)]
     private ?LegalForm $legalForm = null;
 
@@ -475,16 +472,11 @@ class Company
         }
     }
 
-    public function getThemeSelection(): ?ThemeSelection
+    public function deleteLogo(): void
     {
-        return $this->themeSelection;
-    }
-
-    public function setThemeSelection(?ThemeSelection $themeSelection): static
-    {
-        $this->themeSelection = $themeSelection;
-
-        return $this;
+        $this->logo = null;
+        $this->logoFile = null;
+        $this->updatedAt = new \DateTimeImmutable(); // déclenche Vich
     }
 
     public function getLegalForm(): ?LegalForm

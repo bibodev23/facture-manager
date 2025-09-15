@@ -2,9 +2,13 @@
   width: 100%;
   height: 100%;
   nav {
+    position: sticky;
+    top: 0;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
+    background-color: white;
+    z-index: 1;
     ul {
       display: flex;
       justify-content: center;
@@ -38,22 +42,32 @@
 
   /* ===== Header ===== */
   header {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background-image: radial-gradient(at bottom center, #1c7d49 0%, #151e31 50%);
     color: white;
-    padding: 6rem 2rem 5rem;
+    padding: 100px 20px;
     text-align: center;
-  }
-
-  header {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    .img {
+      transform: rotate3d(1, 1, 0, 0deg);
+      transition: transform 0.5s ease;
+      &:hover {
+        transform: rotate3d(1, 1, 0, 30deg);
+        transition: transform 0.5s ease;
+      }
+    }
     div {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 1.5rem;
+      color: #d8f6ee;
+
       h1 {
-        font-weight: 300;
-        font-size: 3rem;
+        font-weight: 600;
+        font-size: 54px;
         line-height: 1.1;
         letter-spacing: 0.05em;
       }
@@ -80,13 +94,88 @@
 
   /* ===== Sections ===== */
   section {
-    padding: 3rem 2rem;
-    max-width: 1100px;
+    padding: 60px 20px;
+    max-width: 1200px;
     margin: auto;
+    &.features {
+      padding: 120px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .text {
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h2 {
+        text-align: left;
+        margin-bottom: 0;
+      }
+      p {
+        color: #707b82;
+      }
+    }
+    .list-features {
+      width: 65%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .list-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        .card {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          background-color: #d8f6ee;
+          border-radius: 15px;
+          padding: 10px;
+          width: 340px;
+          .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-color: #62c891;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            svg {
+              width: 30px;
+              height: 30px;
+              color: rgb(36, 34, 34);
+            }
+          }
+          h3 {
+            color: black;
+            font-size: 20px;
+            font-weight: 600;
+          }
+          &:nth-child(1) {
+            transform: translateX(40px);
+          }
+          &:nth-child(2) {
+            transform: translateX(0px);
+          }
+          &:nth-child(3) {
+            transform: translateX(-40px);
+          }
+        }
+      }
+      .manager {
+        img {
+          width: 220px;
+          height: auto;
+          object-fit: cover;
+          border-radius: 15px;
+        }
+      }
+    }
   }
 
   section h2 {
-    font-size: 2rem;
+    font-size: 54px;
     font-weight: 600;
     margin-bottom: 2rem;
     text-align: center;
@@ -97,38 +186,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-  }
-
-  section > div > div {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
-    text-align: center;
-  }
-
-  section > div > div:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-  }
-
-  section > div > div div {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  section > div > div h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  section > div > div p {
-    font-size: 1rem;
-    color: #4b5563;
   }
 
   /* ===== FAQ Accordion ===== */
@@ -150,14 +207,6 @@
     background-color: #e5e7eb;
   }
 
-  .accordion-body {
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  }
-
   /* ===== Lists ===== */
   ul {
     list-style: disc;
@@ -165,11 +214,23 @@
     color: #374151;
     font-size: 1rem;
   }
+}
 
-  /* ===== Responsive Tweaks ===== */
-  @media (max-width: 600px) {
-    header h1 {
-      font-size: 2rem;
+@media (max-width: 575px) {
+  .home-container {
+    width: 100vw;
+    header {
+      width: 100%;
+      flex-direction: column;
+      padding: 0;
+      div {
+        h1 {
+          font-size: 32px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
     }
     section h2 {
       font-size: 1.5rem;
