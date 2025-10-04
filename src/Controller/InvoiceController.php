@@ -256,7 +256,7 @@ final class InvoiceController extends AbstractController
     ]);
     }
 
-    #[Route('invoice/{id}/mail', name: 'app_invoice_mail', methods: ['GET'])]
+    #[Route('/{id}/mail', name: 'app_invoice_mail', methods: ['POST'])]
     public function sendInvoice(Invoice $invoice, MailerInterface $mailer, Request $request, PdfGenerator $pdfGenerator, EmailCreator $emailCreator): Response
     {
         /** @var \App\Entity\User */

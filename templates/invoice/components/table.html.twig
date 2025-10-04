@@ -1,24 +1,24 @@
 {# templates/invoice/_table.html.twig #}
 {% macro table(title, invoices, tableClass) %}
-    <section>
+    <section class="tables">
         <h3>{{ title }}</h3>
             <table class="table column {{ tableClass }}">
             <thead>
                 <tr>
-                    <th>N°</th>
-                    <th>Client</th>
+                    <th class="w-10 mobile">N°</th>
+                    <th class="w-30 mobile">Client</th>
                     <th>Date</th>
-                    <th>Total HT</th>
+                    <th class="mobile">Total HT</th>
                     <th>Statut</th>
                 </tr>
             </thead>
             <tbody>
             {% for invoice in invoices %}
                 <tr>
-                    <td> <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ invoice.number }}</a></td>
-                    <td>{{ invoice.customer.name }}</td>
+                    <td class="w-10 mobile"> <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ invoice.number }}</a></td>
+                    <td class="w-30 mobile">{{ invoice.customer.name }}</td>
                     <td>{{ invoice.date ? invoice.date|date('d/m/Y') : '' }}</td>
-                    <td>{{ invoice.totalHT|number_format(2, ',', ' ') }} €</td>
+                    <td class="mobile">{{ invoice.totalHT|number_format(2, ',', ' ') }} €</td>
                     <td>{{ invoice.status.label }}</td>
                 </tr>
             {% else %}

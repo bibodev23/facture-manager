@@ -113,6 +113,8 @@ svg {
 
 form {
   width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 form h2 {
   background: none;
@@ -130,6 +132,13 @@ form input {
 }
 form div {
   width: 100%;
+}
+form button.btn-primary {
+  margin: 20px auto;
+  width: -moz-fit-content;
+  width: fit-content;
+  background: #00bf63;
+  color: black;
 }
 
 .form-company {
@@ -160,6 +169,11 @@ table td img {
   height: 70px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+@media screen and (max-width: 1024px) {
+  table {
+    font-size: 14px;
+  }
 }
 table.column tr:hover {
   background: radial-gradient(circle, #ebeff9 0%, #e3ebff 100%);
@@ -376,17 +390,33 @@ textarea {
   max-width: 1200px;
   margin: auto;
 }
+@media screen and (max-width: 575px) {
+  .home-container section {
+    padding: 20px 10px;
+  }
+}
 .home-container section.features {
   padding: 120px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+@media screen and (max-width: 575px) {
+  .home-container section.features {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+}
 .home-container section .text {
   width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+@media screen and (max-width: 575px) {
+  .home-container section .text {
+    width: 100%;
+  }
 }
 .home-container section .text h2 {
   text-align: left;
@@ -400,6 +430,12 @@ textarea {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+@media screen and (max-width: 575px) {
+  .home-container section .list-features {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 .home-container section .list-features .list-cards {
   display: flex;
@@ -434,14 +470,16 @@ textarea {
   font-size: 20px;
   font-weight: 600;
 }
-.home-container section .list-features .list-cards .card:nth-child(1) {
-  transform: translateX(40px);
-}
-.home-container section .list-features .list-cards .card:nth-child(2) {
-  transform: translateX(0px);
-}
-.home-container section .list-features .list-cards .card:nth-child(3) {
-  transform: translateX(-40px);
+@media screen and (max-width: 575px) {
+  .home-container section .list-features .list-cards .card:nth-child(1) {
+    transform: translateX(0px);
+  }
+  .home-container section .list-features .list-cards .card:nth-child(2) {
+    transform: translateX(0px);
+  }
+  .home-container section .list-features .list-cards .card:nth-child(3) {
+    transform: translateX(0px);
+  }
 }
 .home-container section .list-features .manager img {
   width: 220px;
@@ -494,13 +532,21 @@ textarea {
     padding: 0;
   }
   .home-container header div h1 {
-    font-size: 32px;
+    font-size: 26px;
+    width: 80%;
   }
   .home-container header div p {
     font-size: 12px;
   }
+  .home-container header div a.btn-subscribe {
+    font-size: 12px;
+  }
+  .home-container section p {
+    line-height: 1.5;
+    text-align: justify;
+  }
   .home-container section h2 {
-    font-size: 1.5rem;
+    font-size: 22px;
   }
 }
 .register-login {
@@ -928,8 +974,18 @@ textarea {
   color: #00bf63;
   font-weight: 600;
 }
+@media screen and (max-width: 575px) {
+  .dashboard-container .page .page-content h2 {
+    font-size: 30px;
+  }
+}
 .dashboard-container .page .page-content h3 {
   font-size: 32px;
+}
+@media screen and (max-width: 1024px) {
+  .dashboard-container .page .page-content h3 {
+    font-size: 20px;
+  }
 }
 .dashboard-container .page .page-content section {
   width: 100%;
@@ -952,6 +1008,11 @@ textarea {
   justify-content: space-between;
   gap: 20px;
 }
+@media screen and (max-width: 1024px) {
+  .dashboard-container .page .page-content form .two-columns {
+    flex-direction: column;
+  }
+}
 .dashboard-container .page .page-content form .input-group {
   display: flex;
   flex-direction: column;
@@ -973,6 +1034,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  margin-bottom: 40px;
 }
 .dashboard-container .page .page-content.dashboard .list-card .card {
   padding: 1rem;
@@ -1329,4 +1391,42 @@ textarea {
   left: 50%;
   transform: translateX(-50%);
   margin: 0 auto;
+}
+
+.tables {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.tables h3 {
+  margin-bottom: 10px;
+}
+.tables table {
+  table-layout: fixed;
+}
+.tables table th,
+.tables table td {
+  width: 10%;
+}
+.tables table th.w-30,
+.tables table td.w-30 {
+  width: 30%;
+}
+@media screen and (max-width: 1024px) {
+  .tables table th,
+  .tables table td {
+    display: none;
+    width: 50%;
+  }
+  .tables table th.mobile,
+  .tables table td.mobile {
+    display: table-cell;
+  }
+  .tables table th.w-30,
+  .tables table td.w-30 {
+    width: 60%;
+  }
+  .tables table th.w-10,
+  .tables table td.w-10 {
+    width: 20%;
+  }
 }/*# sourceMappingURL=app.css.map */

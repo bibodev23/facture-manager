@@ -1,0 +1,31 @@
+.tables {
+    max-height: 400px;
+    overflow-y: scroll;
+    h3 {
+        margin-bottom: 10px;
+    }
+    table {
+        table-layout: fixed;
+        th,
+        td {
+            width: 10%;
+            &.w-30 {
+                width: 30%;
+                
+            }
+            @media screen and (max-width: 1024px) {
+                display: none;
+                width: 50%;
+                &.mobile {
+                    display: table-cell;
+                }
+                &.w-30 {
+                    width: 60%;
+                }
+                &.w-10 {
+                    width: 20%;
+                }
+            }
+        }
+    }
+}

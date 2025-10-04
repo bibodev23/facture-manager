@@ -123,6 +123,8 @@ svg {
 
 form {
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
     h2 {
         background: none;
     }
@@ -141,6 +143,12 @@ form {
     }
     div {
         width: 100%;
+    }
+    button.btn-primary {
+        margin: 20px auto;
+        width: fit-content;
+        background: $color-vert;
+        color: black;
     }
 }
 .form-company {
@@ -169,6 +177,9 @@ table {
             object-fit: cover;
         }
     }
+            @media screen and (max-width: 1024px) {
+            font-size: 14px;
+        }
     &.column {
         tr:hover {
             background: radial-gradient(circle, #ebeff9 0%, #e3ebff 100%);
@@ -304,5 +315,6 @@ textarea {
 @import "home.scss";
 @import "login.scss";
 @import "dashboard.scss";
-@import "invoice.scss";
+@import "invoice_show.scss";
 @import "invoice_preview.scss";
+@import "invoice_index.scss";
